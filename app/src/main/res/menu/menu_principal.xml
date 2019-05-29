@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    //tools:context=".ActPrincipal">
+
+    <item
+        android:id="@+id/pontuacao"
+        android:orderInCategory="100"
+        android:title="@string/pontuacao"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/campeao"
+        android:orderInCategory="100"
+        android:title="@string/campeao"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sair"
+        android:orderInCategory="100"
+        android:title="@string/sair"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">BolaoSJ</string>
+    <string name="listaRodada">Rodada</string>
+    <string name="pontuacao">Pontuação</string>
+    <string name="sair">Sair</string>
+    <string name="total">Total</string>
+    <string name="por_rodada">Por Rodada</string>
+    <string name="campeao">Campeão cfe Tabela</string>
+    <string-array name="rodadas">
+        <item>Rodada 1</item>
+        <item>Rodada 2</item>
+        <item>Rodada 3</item>
+        <item>Rodada 4</item>
+        <item>Rodada 5</item>
+        <item>Rodada 6</item>
+        <item>Rodada 7</item>
+        <item>Rodada 8</item>
+        <item>Rodada 9</item>
+        <item>Rodada 10</item>
+        <item>Rodada 11</item>
+        <item>Rodada 12</item>
+        <item>Rodada 13</item>
+        <item>Rodada 14</item>
+        <item>Rodada 15</item>
+        <item>Rodada 16</item>
+        <item>Rodada 17</item>
+        <item>Rodada 18</item>
+        <item>Rodada 19</item>
+        <item>Rodada 20</item>
+        <item>Rodada 21</item>
+        <item>Rodada 22</item>
+        <item>Rodada 23</item>
+        <item>Rodada 24</item>
+        <item>Rodada 25</item>
+        <item>Rodada 26</item>
+        <item>Rodada 27</item>
+        <item>Rodada 28</item>
+        <item>Rodada 29</item>
+        <item>Rodada 30</item>
+        <item>Rodada 31</item>
+        <item>Rodada 32</item>
+        <item>Rodada 33</item>
+        <item>Rodada 34</item>
+        <item>Rodada 35</item>
+        <item>Rodada 36</item>
+        <item>Rodada 37</item>
+        <item>Rodada 38</item>
+    </string-array>
+</resources>
