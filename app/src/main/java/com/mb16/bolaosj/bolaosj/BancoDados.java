@@ -319,7 +319,7 @@ public class BancoDados extends SQLiteOpenHelper {
         return listCampeao;
     }
 
-    void atualizaJogoTabela(JogoTabela jogotabela) {
+    void atualizaJogoTabela(JogoTabela jogotabela, Boolean updateAposta) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -330,13 +330,14 @@ public class BancoDados extends SQLiteOpenHelper {
         values.put("vencedor", jogotabela.getVencedor());
         values.put("empate", jogotabela.getEmpate());
         db.update("tabtabela", values, "nrojogo = ?", new String[]{String.valueOf(jogotabela.getNrojogo())});
-        atualizaJogoAposta(nrojogo,0);
-        atualizaJogoAposta(nrojogo,1);
-        atualizaJogoAposta(nrojogo,2);
-        atualizaJogoAposta(nrojogo,3);
-        atualizaJogoAposta(nrojogo,4);
-        atualizaJogoAposta(nrojogo,5);
-
+        if (updateAposta) {
+            atualizaJogoAposta(nrojogo, 0);
+            atualizaJogoAposta(nrojogo, 1);
+            atualizaJogoAposta(nrojogo, 2);
+            atualizaJogoAposta(nrojogo, 3);
+            atualizaJogoAposta(nrojogo, 4);
+            atualizaJogoAposta(nrojogo, 5);
+        }
         db.close();
     }
 

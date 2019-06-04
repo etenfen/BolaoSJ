@@ -122,15 +122,16 @@ public class ActPrincipal extends AppCompatActivity {
                 jogotabela.setEmpate(empate);
                 jogotabela.setVencedor(vencedor);
 
-                db.atualizaJogoTabela(jogotabela);
+                db.atualizaJogoTabela(jogotabela, true);
 
-                Toast.makeText(ActPrincipal.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ActPrincipal.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
 
                 JogoTabela jogotabela1 = db.selecionarJogoTabela(jogotabela.getNrojogo());
                 listarjogotabela(jogotabela1.getRodada());
                 limpartodosCampos();
                 popularCampos(jogotabela1.getNrojogo());
                 escondeTeclado();
+                Toast.makeText(ActPrincipal.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -156,10 +157,10 @@ public class ActPrincipal extends AppCompatActivity {
                 jogotabela.setNrojogo(Integer.parseInt(nrojogo));
                 jogotabela.setGolsmandante(0);
                 jogotabela.setGolsvisitante(0);
-                jogotabela.setEmpate(null);
-                jogotabela.setVencedor(null);
+                jogotabela.setEmpate("N");
+                jogotabela.setVencedor("N");
 
-               // db.atualizaJogoTabela(jogotabela);
+                db.atualizaJogoTabela(jogotabela, false);
                 JogoTabela jogotabela1 = db.selecionarJogoTabela(jogotabela.getNrojogo());
                 listarjogotabela(jogotabela1.getRodada());
                 limpartodosCampos();
@@ -222,6 +223,10 @@ public class ActPrincipal extends AppCompatActivity {
         inputmethod.hideSoftInputFromWindow(tvgolsmandante.getWindowToken(), 0);
     }
 
+    void mostraTeclado() {
+        inputmethod.showSoftInput(tvgolsmandante, 0);
+    }
+
     private void limpartodosCampos() {
         edNroJogo.setText("");
         tvmandante.setText("");
@@ -282,6 +287,7 @@ public class ActPrincipal extends AppCompatActivity {
                 popularCampos(dataModel.getNrojogo());
                 btnSalvar.setEnabled(true);
                 btnLimparPto.setEnabled(true);
+                mostraTeclado();
             }
         });
 
