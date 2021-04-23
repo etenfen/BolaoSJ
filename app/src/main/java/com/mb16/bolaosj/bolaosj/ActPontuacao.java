@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ShareActionProvider;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class ActPontuacao extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private ArrayList<String> listajogadores;
     private int porrodada;
+ //   private ShareActionProvider mShareActionProvider;
     Spinner cbRodadaPontos;
     JogadorAdapter data;
     BancoDados db = new BancoDados(this);
@@ -34,8 +37,10 @@ public class ActPontuacao extends AppCompatActivity {
         porrodada = Integer.parseInt(it.getStringExtra("rodada"));
         setTitle("Pontuação");
 
-        lstPontuacao = (ListView) findViewById(R.id.lstPontuacao);
-        cbRodadaPontos = (Spinner) findViewById(R.id.cbRodadaPontos);
+        //lstPontuacao = (ListView) findViewById(R.id.lstPontuacao);
+        lstPontuacao = findViewById(R.id.lstPontuacao);
+        //cbRodadaPontos = (Spinner) findViewById(R.id.cbRodadaPontos);
+        cbRodadaPontos = findViewById(R.id.cbRodadaPontos);
         cbRodadaPontos.setSelection(porrodada-1);
         atualizarPontuacao(porrodada);
 
@@ -56,6 +61,7 @@ public class ActPontuacao extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_pontuacao, menu);
+
         return true;
     }
 
@@ -67,8 +73,17 @@ public class ActPontuacao extends AppCompatActivity {
             cbRodadaPontos.setVisibility(View.GONE);
             porrodada = 0;
             atualizarPontuacao(porrodada);
+            //PARA COMPARTILHAR
+            /*Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            String texto = "Olá sou um texto compartilhado";
+            sendIntent.putExtra(Intent.EXTRA_TEXT, texto);
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+*/
             return true;
         }
+
         if (id == R.id.porrodada) {
             cbRodadaPontos.setVisibility(View.VISIBLE);
 
