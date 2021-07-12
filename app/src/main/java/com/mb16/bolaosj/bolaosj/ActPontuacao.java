@@ -19,6 +19,7 @@ public class ActPontuacao extends AppCompatActivity {
 
     private Jogador dataModel;
     private ListView lstPontuacao;
+    //private RecyclerView lstPontuacao;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> listajogadores;
     private int porrodada;
@@ -35,6 +36,7 @@ public class ActPontuacao extends AppCompatActivity {
         setTitle("Pontuação");
 
         lstPontuacao = (ListView) findViewById(R.id.lstPontuacao);
+        //lstPontuacao = (RecyclerView) findViewById(R.id.lstPontuacao);
         cbRodadaPontos = (Spinner) findViewById(R.id.cbRodadaPontos);
         cbRodadaPontos.setSelection(porrodada-1);
         atualizarPontuacao(porrodada);

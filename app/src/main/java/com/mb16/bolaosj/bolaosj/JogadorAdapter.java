@@ -26,6 +26,10 @@ public class JogadorAdapter extends ArrayAdapter<Jogador> {
         Jogador data = getItem(position);
 
         Holder viewHolder;
+       // String pos1 = "1";
+       // String pos2 = "2";
+       // String pos3 = "3";
+       // String pos4 = "4";
 
         if (convertView == null) {
 
@@ -49,6 +53,23 @@ public class JogadorAdapter extends ArrayAdapter<Jogador> {
         viewHolder.tvpontos.setText(String.valueOf(data.getPontos()));
         viewHolder.tvnaveia.setText(String.valueOf(data.getNaveia()));
         viewHolder.tvnaveiavisitante.setText(String.valueOf(data.getNaveiavisitante()));
+
+/*        if (pos1.equals(viewHolder.tvposicao)){
+
+            // Altera a cor de fundo da lista:
+            viewHolder.tvposicao.setBackgroundColor(convertView.getResources().getColor(R.color.colorPrimaryDark));
+            viewHolder.tvnome.setBackgroundColor(convertView.getResources().getColor(R.color.colorPrimaryDark));
+            viewHolder.tvnaveia.setBackgroundColor(convertView.getResources().getColor(R.color.colorPrimaryDark));
+            viewHolder.tvnaveiavisitante.setBackgroundColor(convertView.getResources().getColor(R.color.colorPrimaryDark));
+            viewHolder.tvpontos.setBackgroundColor(convertView.getResources().getColor(R.color.colorPrimaryDark));
+        } else {
+            viewHolder.tvposicao.setBackgroundColor(convertView.getResources().getColor(R.color.colorAccent));
+            viewHolder.tvnome.setBackgroundColor(convertView.getResources().getColor(R.color.colorAccent));
+            viewHolder.tvnaveia.setBackgroundColor(convertView.getResources().getColor(R.color.colorAccent));
+            viewHolder.tvnaveiavisitante.setBackgroundColor(convertView.getResources().getColor(R.color.colorAccent));
+            viewHolder.tvpontos.setBackgroundColor(convertView.getResources().getColor(R.color.colorAccent));
+        }*/
+
 
         // Return the completed view to render on screen
         return convertView;
