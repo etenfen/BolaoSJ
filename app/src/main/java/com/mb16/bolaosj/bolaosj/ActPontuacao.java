@@ -3,6 +3,8 @@ package com.mb16.bolaosj.bolaosj;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,15 +19,26 @@ import java.util.List;
 
 public class ActPontuacao extends AppCompatActivity {
 
-    private Jogador dataModel;
+/* Com Lista
+  private Jogador dataModel;
     private ListView lstPontuacao;
-    //private RecyclerView lstPontuacao;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> listajogadores;
     private int porrodada;
     Spinner cbRodadaPontos;
     JogadorAdapter data;
+    BancoDados db = new BancoDados(this); */
+
+    // Com RecyclerView
+    private RecyclerView mRecyclerViewPontuacao;
+    private PontuacaoAdapter adapter;
+    private List<Jogador> jogadores;
+    private int porrodada;
+    Spinner cbRodadaPontos;
     BancoDados db = new BancoDados(this);
+    private Jogador todosjogadores;
+    private LinearLayoutManager mLayoutManagertodosjogadores;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +48,11 @@ public class ActPontuacao extends AppCompatActivity {
         porrodada = Integer.parseInt(it.getStringExtra("rodada"));
         setTitle("Pontuação");
 
-        lstPontuacao = (ListView) findViewById(R.id.lstPontuacao);
-        //lstPontuacao = (RecyclerView) findViewById(R.id.lstPontuacao);
+        //lstPontuacao = (ListView) findViewById(R.id.lstPontuacao);
+        mRecyclerViewPontuacao = (RecyclerView) findViewById(R.id.mRecyclerViewPontuacao);
         cbRodadaPontos = (Spinner) findViewById(R.id.cbRodadaPontos);
         cbRodadaPontos.setSelection(porrodada-1);
+
         atualizarPontuacao(porrodada);
 
         cbRodadaPontos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -84,11 +98,22 @@ public class ActPontuacao extends AppCompatActivity {
 
     private void atualizarPontuacao(int _rodada) {
 
-        final ArrayList<Jogador> jogadores = new ArrayList<>(db.allJogadores(_rodada));
-        data = new JogadorAdapter(this, jogadores);
-        lstPontuacao.setAdapter(data);
+        mRecyclerViewPontuacao.setHasFixedSize(true);
 
-        lstPontuacao.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mLayoutManagertodosjogadores = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        mRecyclerViewPontuacao.setLayoutManager(mLayoutManagertodosjogadores);
+
+        //jogadores = new ArrayList<>();
+
+        final ArrayList<Jogador> jogadores = new ArrayList<>(db.allJogadores(_rodada));
+
+        adapter = new PontuacaoAdapter(jogadores,this, _rodada);
+        mRecyclerViewPontuacao.setAdapter(adapter);
+        //data = new JogadorAdapter(this, jogadores);
+        //lstPontuacao.setAdapter(data);
+
+       /* lstPontuacao.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 dataModel = jogadores.get(position);
@@ -103,6 +128,6 @@ public class ActPontuacao extends AppCompatActivity {
                 intent.putExtra("rodada", String.valueOf(porrodada));
                 startActivity(intent);
             }
-        });
+        });*/
     }
 }

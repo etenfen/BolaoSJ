@@ -9,8 +9,8 @@
     <Spinner
         android:id="@+id/cbRodadaPontos"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/bootstrap_gray_light"
+        android:layout_height="50dp"
+        android:background="@color/bootstrap_well_border_color"
         android:entries="@array/rodadas" />
 
   <!--  <ListView
@@ -21,9 +21,9 @@
     </ListView> -->
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/lstPontuacao"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/mRecyclerViewPontuacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
 
     </android.support.v7.widget.RecyclerView>
 
