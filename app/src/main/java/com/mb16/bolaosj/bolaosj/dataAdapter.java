@@ -35,7 +35,6 @@ public class dataAdapter extends ArrayAdapter<JogoTabela> {
         TextView tvpto2;
         TextView tvpto1;
         TextView tvpto0;
-
     }
 
     @Override

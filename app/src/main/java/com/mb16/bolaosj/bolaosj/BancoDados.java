@@ -216,8 +216,9 @@ public class BancoDados extends SQLiteOpenHelper {
         String sql = "";
         if (_rodada != 0) {
             sql = "select " +
-                    "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante " +
-                    "from " +
+                    "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante, " +
+                    "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = tabtabela.rodada -1) as posant " +
+            "from " +
                     "  tabaposta " +
                     "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
                     "left join tabtabela  on (tabaposta.nrojogo = tabtabela.nrojogo) " +
@@ -243,6 +244,11 @@ public class BancoDados extends SQLiteOpenHelper {
                 jogador.setPontos(parseInt(cursor.getString(2)));
                 jogador.setNaveia(parseInt(cursor.getString(3)));
                 jogador.setNaveiavisitante(parseInt(cursor.getString(4)));
+                try {
+                   jogador.setPosant(parseInt(cursor.getString(5)));
+                } catch (Exception ex) {
+                    jogador.setPosant(0);
+                }
                 listJogador.add(jogador);
 
             } while (cursor.moveToNext());
@@ -407,7 +413,8 @@ public class BancoDados extends SQLiteOpenHelper {
                         "                 and (tabaposta.calcula = 'S'))");
                 break;
         }
-        db.close();;
+
+        db.close();
     }
 
     JogoTabela selecionarJogoTabela(int _nrojogo) {

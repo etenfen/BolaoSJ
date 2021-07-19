@@ -7,17 +7,19 @@ public class Jogador {
     int pontos;
     int naveia;
     int naveiavisitante;
+    int posant;
 
     public Jogador() {
 
     }
 
-    public Jogador(int _nroparticipante, String _nome, int _pontos, int _naveia, int _naveiavisitante){
+    public Jogador(int _nroparticipante, String _nome, int _pontos, int _naveia, int _naveiavisitante, int _posant){
         this.nroparticipante = _nroparticipante;
         this.nome = _nome;
         this.pontos = _pontos;
         this.naveia = _naveia;
         this.naveiavisitante = _naveiavisitante;
+        this.posant = _posant;
     }
 
     public Jogador(String _nome, int _pontos, int _naveia, int _naveiavisitante){
@@ -67,6 +69,10 @@ public class Jogador {
     public void setNaveiavisitante(int naveiavisitante) {
         this.naveiavisitante = naveiavisitante;
     }
+
+    public int getPosant() { return posant; }
+
+    public void setPosant(int posant) { this.posant = posant; }
 
     @Override
     public String toString()

@@ -148,7 +148,6 @@ public class ActPrincipal extends AppCompatActivity {
                     mensagem.setNeutralButton("OK", null);
                     mensagem.show();
                     return;
-
                 }
 
                 db.limpaPontosJogo(Integer.parseInt(nrojogo));
