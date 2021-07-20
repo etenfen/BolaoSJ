@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
     private List<Jogador> jogadores;
     private List<Jogador> todosJogadores;
     private Jogador dataModel;
-    private int porrodada;
+    private static int porrodada;
     BancoDados db;
 
     public PontuacaoAdapter(List<Jogador> l, Context c, Integer _rodada) {
@@ -45,7 +46,6 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
     public void onBindViewHolder(@NonNull PontuacaoAdapter.ViewHolder holder, int position) {
 
         final Jogador item = mJogadorList.get(position);
-
         Integer posant = item.getPosant();
         Integer difpos = posant - (position +1);
 
@@ -111,6 +111,14 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
             tvnaveia = (TextView) itemView.findViewById(R.id.tvnaveia);
             tvnaveiavisitante = (TextView) itemView.findViewById(R.id.tvnaveiavisitante);
             linearLayoutRegistros = (LinearLayout) itemView.findViewById((R.id.layoutregistros));
+
+            if (porrodada != 0) {
+                tvdifpos.setVisibility(View.INVISIBLE);
+                imgdifpos.setVisibility(View.INVISIBLE);
+            } else {
+                tvdifpos.setVisibility(View.VISIBLE);
+                imgdifpos.setVisibility(View.VISIBLE);
+            }
 
         }
     }

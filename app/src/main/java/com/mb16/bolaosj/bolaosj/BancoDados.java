@@ -216,8 +216,8 @@ public class BancoDados extends SQLiteOpenHelper {
         String sql = "";
         if (_rodada != 0) {
             sql = "select " +
-                    "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante, " +
-                    "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = tabtabela.rodada -1) as posant " +
+                    "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante " +
+                   // "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = tabtabela.rodada -1) as posant " +
             "from " +
                     "  tabaposta " +
                     "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
@@ -343,6 +343,7 @@ public class BancoDados extends SQLiteOpenHelper {
             atualizaJogoAposta(nrojogo, 3);
             atualizaJogoAposta(nrojogo, 4);
             atualizaJogoAposta(nrojogo, 5);
+
         }
         db.close();
     }
@@ -459,4 +460,44 @@ public class BancoDados extends SQLiteOpenHelper {
         db.close();;
     }
 
+    public void atualizaPosicaoPontuacao(int _rodada){
+        Log.d("entrou no sistema ", String.valueOf(_rodada));
+        SQLiteDatabase db = this.getWritableDatabase();
+        //ContentValues values = new ContentValues();
+        db.execSQL("DELETE from tabrodadapos " +
+                   "where " +
+                   "  rodada = "+ String.valueOf(_rodada));
+
+        db.execSQL("insert into tabrodadapos " +
+                   "select " +String.valueOf(_rodada) +
+                   ", nrojogador, ROW_NUMBER() OVER() AS posicao " +
+                   "from " +
+                   "(select " +
+                   "   tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante, " +
+                   "   (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + String.valueOf(_rodada-1) + ") as posant " +
+                   "from " +
+                   "   tabaposta " +
+                   "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
+                   "left join tabtabela  on (tabaposta.nrojogo = tabtabela.nrojogo) " +
+                   "where " +
+                   "   tabtabela.rodada <= "+String.valueOf(_rodada) +
+                   " group by " +
+                   "   tabjogador.nrojogador " +
+                   "order by " +
+                   "   totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ) ");
+        db.close();;
+    }
+
+    private int retornaRodada(){
+
+        mDB = this.getWritableDatabase();
+        String sql = "";
+        sql = "select max(rodada) from tabrodadapos ";
+        Cursor cursor = mDB.rawQuery(sql, null);
+        Integer rodada = cursor.getInt(0);
+        cursor.close();
+        mDB.close();
+
+        return rodada;
+    }
 }

@@ -27,8 +27,9 @@
                 android:id="@+id/tvposicao"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginRight="5dp"/>
+                android:gravity="center"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"/>
 
             <ImageView
                 android:id="@+id/imgdifpos"
@@ -40,7 +41,7 @@
                 android:id="@+id/tvdifpos"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="left|center_vertical"
                 android:textSize="10sp"
                 android:layout_marginRight="10dp"/>
 

@@ -82,6 +82,7 @@ public class ActPrincipal extends AppCompatActivity {
             public void onClick(View view) {
 
                 String nrojogo = edNroJogo.getText().toString();
+                Integer rodada = cbRodada.getSelectedItemPosition()+1;
                 if (nrojogo.isEmpty()) {
 
                     AlertDialog.Builder mensagem = new AlertDialog.Builder(ActPrincipal.this);
@@ -123,6 +124,8 @@ public class ActPrincipal extends AppCompatActivity {
                 jogotabela.setVencedor(vencedor);
 
                 db.atualizaJogoTabela(jogotabela, true);
+
+                db.atualizaPosicaoPontuacao(cbRodada.getSelectedItemPosition()+1);
 
                 //Toast.makeText(ActPrincipal.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
 
