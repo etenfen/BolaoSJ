@@ -75,9 +75,7 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
                 intent.putExtra("nrojogador", nrojogador);
                 intent.putExtra("nomejogador", nomejogador);
 
-                if (porrodada == 0) {
-                    porrodada = 1;
-                }
+                if (porrodada == 0) { porrodada = 1; }
                 intent.putExtra("rodada", String.valueOf(porrodada));
                 mContext.startActivity(intent);
             }
