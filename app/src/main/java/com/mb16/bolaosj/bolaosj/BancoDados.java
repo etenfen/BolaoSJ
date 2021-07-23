@@ -209,30 +209,42 @@ public class BancoDados extends SQLiteOpenHelper {
         return listJogoAposta;
     }
 
-    public List<Jogador> allJogadores(int _rodada) {
+    public List<Jogador> allJogadores(int _rodada, boolean _total) {
 
         List<Jogador> listJogador = new ArrayList<Jogador>();
         mDB = this.getWritableDatabase();
         String sql = "";
-        if (_rodada != 0) {
+//        if (_rodada != 0) {
+        if (!_total) {
             sql = "select " +
                     "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante " +
-                   // "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = tabtabela.rodada -1) as posant " +
-            "from " +
+                   "from " +
                     "  tabaposta " +
                     "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
                     "left join tabtabela  on (tabaposta.nrojogo = tabtabela.nrojogo) " +
-                    "where tabtabela.rodada = " + String.valueOf(_rodada) +
+                    "where" +
+                    "  tabtabela.rodada = " + String.valueOf(_rodada) +
                     " group by tabjogador.nrojogador " +
                     " order by totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ";
         } else {
-            sql = "select " +
+/*            sql = "select " +
                     "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante " +
                     "from " +
                     "  tabaposta " +
                     "     left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
                     "  group by tabjogador.nrojogador " +
-                    "  order by totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ";
+                    "  order by totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ";*/
+            sql = "select " +
+                  "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante, " +
+                  "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + String.valueOf(_rodada-1) +") as posant " +
+                  "from " +
+                  "  tabaposta " +
+                  "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
+                  "left join tabtabela  on (tabaposta.nrojogo = tabtabela.nrojogo) " +
+                  "where " +
+                  "  tabtabela.rodada <= " + String.valueOf(_rodada) +
+                  "  group by tabjogador.nrojogador " +
+                  "  order by totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ";
         }
         Cursor cursor = mDB.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
@@ -284,7 +296,6 @@ public class BancoDados extends SQLiteOpenHelper {
         return listJogador;
     }
 
-
     public List<Campeao> allCampeoes(int _nrojogador) {
 
         List<Campeao> listCampeao = new ArrayList<Campeao>();
@@ -313,7 +324,7 @@ public class BancoDados extends SQLiteOpenHelper {
                 campeao.setDerrotas(Integer.parseInt(cursor.getString(6)));
                 campeao.setGolspro(Integer.parseInt(cursor.getString(7)));
                 campeao.setGolscontra(Integer.parseInt(cursor.getString(8)));
-                campeao.setSaldo(Integer.parseInt(cursor.getString(9)));
+
 
                 listCampeao.add(campeao);
 
@@ -488,13 +499,16 @@ public class BancoDados extends SQLiteOpenHelper {
         db.close();;
     }
 
-    private int retornaRodada(){
+    public int retornaRodada(){
 
         mDB = this.getWritableDatabase();
         String sql = "";
-        sql = "select max(rodada) from tabrodadapos ";
+        //int rodada = 0;
+        sql = "select max(rodada) as rodada from tabrodadapos ";
         Cursor cursor = mDB.rawQuery(sql, null);
-        Integer rodada = cursor.getInt(0);
+        cursor.moveToFirst();
+            //rodada = Integer.parseInt(cursor.getString(0));
+        int rodada = Integer.parseInt(cursor.getString(cursor.getColumnIndex("rodada")));
         cursor.close();
         mDB.close();
 

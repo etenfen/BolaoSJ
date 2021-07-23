@@ -24,12 +24,14 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
     private List<Jogador> todosJogadores;
     private Jogador dataModel;
     private static int porrodada;
+    private static boolean total;
     BancoDados db;
 
-    public PontuacaoAdapter(List<Jogador> l, Context c, Integer _rodada) {
+    public PontuacaoAdapter(List<Jogador> l, Context c, Integer _rodada, boolean _total) {
         context = c;
         mJogadorList = l;
         porrodada = _rodada;
+        total = _total;
         db = new BancoDados(c);
     }
 
@@ -75,7 +77,7 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
                 intent.putExtra("nrojogador", nrojogador);
                 intent.putExtra("nomejogador", nomejogador);
 
-                if (porrodada == 0) { porrodada = 1; }
+                if (total) { porrodada = 1; }
                 intent.putExtra("rodada", String.valueOf(porrodada));
                 mContext.startActivity(intent);
             }
@@ -110,7 +112,7 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
             tvnaveiavisitante = (TextView) itemView.findViewById(R.id.tvnaveiavisitante);
             linearLayoutRegistros = (LinearLayout) itemView.findViewById((R.id.layoutregistros));
 
-            if (porrodada != 0) {
+            if (!total) {
                 tvdifpos.setVisibility(View.INVISIBLE);
                 imgdifpos.setVisibility(View.INVISIBLE);
             } else {
