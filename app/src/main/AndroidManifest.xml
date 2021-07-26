@@ -11,8 +11,9 @@
         android:theme="@style/AppTheme">
         <provider
             android:name=".MyContentProvider"
-            android:authorities="com.mb16.bolaosj.bolaosj.fileprovider"
+            android:authorities="com.mb16.bolaosj.bolaosj.provider"
             android:enabled="true"
+            android:grantUriPermissions="true"
             android:exported="false">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"

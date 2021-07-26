@@ -52,15 +52,18 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
         Integer difpos = posant - (position +1);
 
         if (difpos == 0) {
+            holder.tvdifpos.setText(String.valueOf(difpos));
             holder.imgdifpos.setImageDrawable(context.getDrawable(R.drawable.neutro));
         } else {
             if (difpos > 0) {
                 holder.imgdifpos.setImageDrawable(context.getDrawable(R.drawable.setacima));
+                holder.tvdifpos.setText("+"+String.valueOf(difpos));
             } else {
                 holder.imgdifpos.setImageDrawable(context.getDrawable(R.drawable.setabaixo));
+                holder.tvdifpos.setText(String.valueOf(difpos));
             }
         }
-        holder.tvdifpos.setText(String.valueOf(difpos));
+        //holder.tvdifpos.setText(String.valueOf(difpos));
         holder.tvposicao.setText(String.valueOf(position + 1));
         holder.tvnome.setText(item.getNome());
         holder.tvpontos.setText(String.valueOf(item.getPontos()));

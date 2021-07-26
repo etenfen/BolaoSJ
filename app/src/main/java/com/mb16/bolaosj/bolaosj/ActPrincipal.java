@@ -69,6 +69,7 @@ public class ActPrincipal extends AppCompatActivity {
         inputmethod = (InputMethodManager) this.getSystemService(Service.INPUT_METHOD_SERVICE);
 
         inicializarBancoDados();
+        cbRodada.setSelection(db.retornaRodada()-1);
 
         btnLimpar.setOnClickListener(new View.OnClickListener() {
             @Override

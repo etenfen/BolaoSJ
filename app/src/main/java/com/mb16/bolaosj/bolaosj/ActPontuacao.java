@@ -115,28 +115,48 @@ public class ActPontuacao extends AppCompatActivity {
                 sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
                 startActivity(Intent.createChooser(sharingIntent, "Compartilhar PDF"));*/
 
+                File documentsPath = new File(this.getFilesDir(), "mypdf");
+                File file = new File(documentsPath, "pontuacao.pdf");
+                Uri uri = FileProvider.getUriForFile(this, "com.mb16.bolaosj.bolaosj.provider", file);
 
-                /*final Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                shareIntent.setType("application/pdf");
-                final File pdfFile = new File(getFilesDir(), "pontuacao.pdf");
-                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(pdfFile));
+            /*    final Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                //shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                this.grantUriPermission("com.mb16.bolaosj.bolaosj", uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                //shareIntent.setType("application/pdf");
+                shareIntent.setDataAndType(uri, getContentResolver().getType(uri));
+                //final File pdfFile = new File(getFilesDir(), "pontuacao.pdf");
+                //shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(pdfFile));
                 startActivity(Intent.createChooser(shareIntent, "Share image using"));*/
 
                 //ERRO DE PERMISSÃO
-                File documentsPath = new File(this.getFilesDir(), "mypdf");
+/*                File documentsPath = new File(this.getFilesDir(), "mypdf");
                 File file = new File(documentsPath, "pontuacao.pdf");
-                Uri uri = FileProvider.getUriForFile(this, "com.mb16.bolaosj.bolaosj.fileprovider", file);
+                Uri uri = FileProvider.getUriForFile(this, "com.mb16.bolaosj.bolaosj.provider", file);
 
                 Intent intent = ShareCompat.IntentBuilder.from(this)
-                        .setType("application/pdf")
+                        //.setType("application/pdf")
                         .setStream(uri)
                         .setChooserTitle("Choose bar")
                         .createChooserIntent()
                         .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                         .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                this.grantUriPermission("com.mb16.bolaosj.bolaosj", uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setDataAndType(uri, getContentResolver().getType(uri));
+                //this.grantUriPermission("com.mb16.bolaosj.bolaosj", uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 this.startActivity(intent);
+                */
+                try {
+                    Intent intent = ShareCompat.IntentBuilder.from(this)
+                            .setStream(uri) // uri from FileProvider
+                            .setType("application/pdf")
+                            .getIntent()
+                            .setAction(Intent.ACTION_SEND)
+                            .setDataAndType(uri, "pdf/*")
+                            .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    startActivity(intent);
 
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             } else {
                 Toast.makeText(this, criando, Toast.LENGTH_LONG).show();
             }
