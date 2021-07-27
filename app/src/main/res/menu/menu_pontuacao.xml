@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
+        android:id="@+id/comp"
+        android:orderInCategory="100"
+        android:title="@string/comp"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/gerar_pdf"
         android:orderInCategory="100"
         android:title="@string/gerar_pdf"

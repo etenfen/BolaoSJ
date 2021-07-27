@@ -6,6 +6,7 @@
     <string name="total">Total</string>
     <string name="por_rodada">Rodada</string>
     <string name="gerar_pdf">Gerar_PDF</string>
+    <string name="comp">Comp</string>
     <string name="campeao">Campeão cfe Tabela</string>
     <string-array name="rodadas">
         <item>Rodada 1</item>
