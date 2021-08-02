@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class CampeaoAdapter extends ArrayAdapter<Campeao> {
         this.mcampeao=campeao;
     }
 
-    public class Holder{
+    static class Holder{
         ImageView imgtime;
         TextView tvpontos;
         TextView tvjogos;
@@ -49,15 +48,15 @@ public class CampeaoAdapter extends ArrayAdapter<Campeao> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.layout_lista_campeao, parent, false);
 
-            viewHolder.imgtime = (ImageView) convertView.findViewById(R.id.imgtime);
-            viewHolder.tvpontos = (TextView) convertView.findViewById(R.id.tvpontos);
-            viewHolder.tvjogos = (TextView) convertView.findViewById(R.id.tvjogos);
-            viewHolder.tvvitorias = (TextView) convertView.findViewById(R.id.tvvitorias);
-            viewHolder.tvempates = (TextView) convertView.findViewById(R.id.tvempates);
-            viewHolder.tvderrotas = (TextView) convertView.findViewById(R.id.tvderrotas);
-            viewHolder.tvgolspro = (TextView) convertView.findViewById(R.id.tvgolspro);
-            viewHolder.tvgolscontra = (TextView) convertView.findViewById(R.id.tvgolscontra);
-            viewHolder.tvsaldo = (TextView) convertView.findViewById(R.id.tvsaldo);
+            viewHolder.imgtime = convertView.findViewById(R.id.imgtime);
+            viewHolder.tvpontos = convertView.findViewById(R.id.tvpontos);
+            viewHolder.tvjogos = convertView.findViewById(R.id.tvjogos);
+            viewHolder.tvvitorias = convertView.findViewById(R.id.tvvitorias);
+            viewHolder.tvempates = convertView.findViewById(R.id.tvempates);
+            viewHolder.tvderrotas = convertView.findViewById(R.id.tvderrotas);
+            viewHolder.tvgolspro = convertView.findViewById(R.id.tvgolspro);
+            viewHolder.tvgolscontra = convertView.findViewById(R.id.tvgolscontra);
+            viewHolder.tvsaldo = convertView.findViewById(R.id.tvsaldo);
 
             convertView.setTag(viewHolder);
         } else {

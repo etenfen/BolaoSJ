@@ -6,7 +6,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,10 @@ import java.util.List;
 
 public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.ViewHolder> {
 
-    private Context context;
-    private List<Jogador> mJogadorList;
-    private List<Jogador> jogadores;
-    private List<Jogador> todosJogadores;
+    final Context context;
+    final List<Jogador> mJogadorList;
+    //private List<Jogador> jogadores;
+    //private List<Jogador> todosJogadores;
     private Jogador dataModel;
     private static int porrodada;
     private static boolean total;
@@ -48,8 +47,8 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
     public void onBindViewHolder(@NonNull PontuacaoAdapter.ViewHolder holder, int position) {
 
         final Jogador item = mJogadorList.get(position);
-        Integer posant = item.getPosant();
-        Integer difpos = posant - (position +1);
+        int posant = item.getPosant();
+        int difpos = posant - (position +1);
 
         if (difpos == 0) {
             holder.tvdifpos.setText(String.valueOf(difpos));
@@ -57,7 +56,7 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
         } else {
             if (difpos > 0) {
                 holder.imgdifpos.setImageDrawable(context.getDrawable(R.drawable.setacima));
-                holder.tvdifpos.setText("+"+String.valueOf(difpos));
+                holder.tvdifpos.setText("+" + difpos);
             } else {
                 holder.imgdifpos.setImageDrawable(context.getDrawable(R.drawable.setabaixo));
                 holder.tvdifpos.setText(String.valueOf(difpos));
@@ -69,21 +68,18 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
         holder.tvpontos.setText(String.valueOf(item.getPontos()));
         holder.tvnaveia.setText(String.valueOf(item.getNaveia()));
         holder.tvnaveiavisitante.setText(String.valueOf(item.getNaveiavisitante()));
-        holder.linearLayoutRegistros.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context mContext = view.getContext();
-                dataModel = mJogadorList.get(position);
-                String nrojogador = String.valueOf(dataModel.getNroparticipante());
-                String nomejogador = dataModel.getNome();
-                Intent intent = new Intent(view.getContext(), ActTabela.class);
-                intent.putExtra("nrojogador", nrojogador);
-                intent.putExtra("nomejogador", nomejogador);
+        holder.linearLayoutRegistros.setOnClickListener(view -> {
+            Context mContext = view.getContext();
+            dataModel = mJogadorList.get(position);
+            String nrojogador = String.valueOf(dataModel.getNroparticipante());
+            String nomejogador = dataModel.getNome();
+            Intent intent = new Intent(view.getContext(), ActTabela.class);
+            intent.putExtra("nrojogador", nrojogador);
+            intent.putExtra("nomejogador", nomejogador);
 
-                if (total) { porrodada = 1; }
-                intent.putExtra("rodada", String.valueOf(porrodada));
-                mContext.startActivity(intent);
-            }
+            if (total) { porrodada = 1; }
+            intent.putExtra("rodada", String.valueOf(porrodada));
+            mContext.startActivity(intent);
         });
     }
 
@@ -106,14 +102,14 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
 
-            imgdifpos = (ImageView) itemView.findViewById(R.id.imgdifpos);
-            tvdifpos = (TextView) itemView.findViewById(R.id.tvdifpos);
-            tvposicao = (TextView) itemView.findViewById(R.id.tvposicao);
-            tvnome = (TextView) itemView.findViewById(R.id.tvnome);
-            tvpontos = (TextView) itemView.findViewById(R.id.tvpontos);
-            tvnaveia = (TextView) itemView.findViewById(R.id.tvnaveia);
-            tvnaveiavisitante = (TextView) itemView.findViewById(R.id.tvnaveiavisitante);
-            linearLayoutRegistros = (LinearLayout) itemView.findViewById((R.id.layoutregistros));
+            imgdifpos = itemView.findViewById(R.id.imgdifpos);
+            tvdifpos = itemView.findViewById(R.id.tvdifpos);
+            tvposicao = itemView.findViewById(R.id.tvposicao);
+            tvnome = itemView.findViewById(R.id.tvnome);
+            tvpontos = itemView.findViewById(R.id.tvpontos);
+            tvnaveia = itemView.findViewById(R.id.tvnaveia);
+            tvnaveiavisitante = itemView.findViewById(R.id.tvnaveiavisitante);
+            linearLayoutRegistros = itemView.findViewById((R.id.layoutregistros));
 
             if (!total) {
                 tvdifpos.setVisibility(View.INVISIBLE);

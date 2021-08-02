@@ -1,5 +1,6 @@
 package com.mb16.bolaosj.bolaosj;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,7 +25,7 @@ public class ApostaAdapter extends ArrayAdapter<JogoAposta> {
         this.mjogoaposta=jogoaposta;
     }
 
-    public class Holder{
+    static class Holder{
         TextView tvmandante;
         TextView tvgolsmandante;
         TextView tvgolsvisitante;
@@ -36,6 +37,7 @@ public class ApostaAdapter extends ArrayAdapter<JogoAposta> {
         RatingBar rbpontos;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -49,15 +51,15 @@ public class ApostaAdapter extends ArrayAdapter<JogoAposta> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.layout_lista_jogos_aposta, parent, false);
 
-            viewHolder.tvmandante = (TextView) convertView.findViewById(R.id.tvmandante);
-            viewHolder.tvgolsmandante = (TextView) convertView.findViewById(R.id.tvgolsmandante);
-            viewHolder.tvgolsvisitante = (TextView) convertView.findViewById(R.id.tvgolsvisitante);
-            viewHolder.tvvisitante = (TextView) convertView.findViewById(R.id.tvvisitante);
-            viewHolder.imgmandante = (ImageView) convertView.findViewById(R.id.imgmandante);
-            viewHolder.imgvisitante = (ImageView) convertView.findViewById(R.id.imgvisitante);
-            viewHolder.tvnaveia = (TextView) convertView.findViewById(R.id.tvnaveia);
-            viewHolder.tvnaveiavisitante = (TextView) convertView.findViewById(R.id.tvnaveiavisitante);
-            viewHolder.rbpontos = (RatingBar) convertView.findViewById(R.id.rbpontos);
+            viewHolder.tvmandante = convertView.findViewById(R.id.tvmandante);
+            viewHolder.tvgolsmandante = convertView.findViewById(R.id.tvgolsmandante);
+            viewHolder.tvgolsvisitante = convertView.findViewById(R.id.tvgolsvisitante);
+            viewHolder.tvvisitante = convertView.findViewById(R.id.tvvisitante);
+            viewHolder.imgmandante = convertView.findViewById(R.id.imgmandante);
+            viewHolder.imgvisitante = convertView.findViewById(R.id.imgvisitante);
+            viewHolder.tvnaveia = convertView.findViewById(R.id.tvnaveia);
+            viewHolder.tvnaveiavisitante = convertView.findViewById(R.id.tvnaveiavisitante);
+            viewHolder.rbpontos = convertView.findViewById(R.id.rbpontos);
             viewHolder.rbpontos.setNumStars(5);
 
             convertView.setTag(viewHolder);

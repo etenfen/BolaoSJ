@@ -20,7 +20,7 @@ public class ParticipanteAdapter extends ArrayAdapter<Jogador> {
         this.mjogador=jogador;
     }
 
-    public class Holder{
+    static class Holder{
         TextView tvposicao;
         TextView tvnome;
     }
@@ -38,8 +38,8 @@ public class ParticipanteAdapter extends ArrayAdapter<Jogador> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.layout_lista_participantes, parent, false);
 
-            viewHolder.tvposicao = (TextView) convertView.findViewById(R.id.tvposicao);
-            viewHolder.tvnome = (TextView) convertView.findViewById(R.id.tvnome);
+            viewHolder.tvposicao = convertView.findViewById(R.id.tvposicao);
+            viewHolder.tvnome = convertView.findViewById(R.id.tvnome);
 
             convertView.setTag(viewHolder);
         } else {

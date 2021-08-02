@@ -3,35 +3,30 @@ package com.mb16.bolaosj.bolaosj;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import static java.lang.Integer.*;
 
 public class BancoDados extends SQLiteOpenHelper {
 
     public static final int VERSAOBANCO = 1;
     public static final String NOMEBANCO = "bolao.sqlite";
-    public static String DBPATH = "/data/data/com.mb16.bolaosj.bolaosj/databases/";
-    private Context context;
+    //public static String DBPATH = "/data/data/com.mb16.bolaosj.bolaosj/databases/";
+    //public String DBPATH;// "/data/data/com.mb16.bolaosj.bolaosj/databases/";
+    //private Context context;
     private SQLiteDatabase mDB;
 
     public BancoDados(Context context) {
         super(context, NOMEBANCO, null, VERSAOBANCO);
-        this.context = context;
+        //this.context = context;
     }
 
     @Override
@@ -44,23 +39,25 @@ public class BancoDados extends SQLiteOpenHelper {
 
     }
 
-    public void openDatabase() {
+ /*   public void openDatabase() {
         String dbPath = context.getDatabasePath(NOMEBANCO).getPath();
         if (mDB != null && mDB.isOpen()) return;
         mDB = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
-    }
+    }*/
 
-    public void closeDatabase() {
+/*    public void closeDatabase() {
         if (mDB != null) mDB.close();
-    }
+    }*/
 
     public boolean copiaBanco(Context context) {
         try {
+            String DBPATH = context.getFilesDir().getPath();
+            Log.d("banco",DBPATH);
             InputStream inputStream = context.getAssets().open(NOMEBANCO);
             String outFile = DBPATH + NOMEBANCO;
             OutputStream outputStream = new FileOutputStream(outFile);
             byte[] buff = new byte[1024];
-            int length = 0;
+            int length;
             while ((length = inputStream.read(buff)) > 0) outputStream.write(buff, 0, length);
             outputStream.flush();
             outputStream.close();
@@ -75,9 +72,9 @@ public class BancoDados extends SQLiteOpenHelper {
     }
 
     public List<JogoTabela> allJogoTabela(int _rodada) {
-        List<JogoTabela> listJogoTabela = new ArrayList<JogoTabela>();
+        List<JogoTabela> listJogoTabela = new ArrayList<>();
         mDB = this.getWritableDatabase();
-        String sql = "";
+        String sql;
         if (_rodada != 0) {
             sql = "SELECT " +
                     "   a.nrojogo, a.rodada, t.nometime as mandante, t.escudotime, a.golsmandante, " +
@@ -92,7 +89,7 @@ public class BancoDados extends SQLiteOpenHelper {
                     "left join tabtimes t on (a.codmandante = t.nrotime) " +
                     "left join tabtimes t2 on (a.codvisitante = t2.nrotime) " +
                     "where " +
-                    " rodada = " + String.valueOf(_rodada);
+                    " rodada = " + _rodada;
         } else {
             sql = "SELECT " +
                     "   a.nrojogo, a.rodada, t.nometime as mandante, t.escudotime, a.golsmandante, " +
@@ -134,7 +131,7 @@ public class BancoDados extends SQLiteOpenHelper {
     }
 
     public List<JogoAposta> allJogoAposta(int _rodada, int _nrojogador) {
-        List<JogoAposta> listJogoAposta = new ArrayList<JogoAposta>();
+        List<JogoAposta> listJogoAposta = new ArrayList<>();
         mDB = this.getWritableDatabase();
         String sql = "";
         if (_rodada != 0 && _nrojogador != 0) {
@@ -147,8 +144,8 @@ public class BancoDados extends SQLiteOpenHelper {
                     "left join tabtimes t2 on (a.codvisitante = t2.nrotime) " +
                     "left join tabaposta p on (a.nrojogo = p.nrojogo)  " +
                     "where " +
-                    " nrojogador = " + String.valueOf(_nrojogador) + " and " +
-                    " rodada = " + String.valueOf(_rodada);
+                    " nrojogador = " + _nrojogador + " and " +
+                    " rodada = " + _rodada;
         }
         if (_rodada == 0 && _nrojogador == 0) {
             sql = "SELECT " +
@@ -171,7 +168,7 @@ public class BancoDados extends SQLiteOpenHelper {
                     "left join tabtimes t2 on (a.codvisitante = t2.nrotime) " +
                     "left join tabaposta p on (a.nrojogo = p.nrojogo)  " +
                     "where " +
-                    " rodada = " + String.valueOf(_rodada);
+                    " rodada = " + _rodada;
         }
         if (_rodada == 0 && _nrojogador != 0) {
             sql = "SELECT " +
@@ -183,7 +180,7 @@ public class BancoDados extends SQLiteOpenHelper {
                     "left join tabtimes t2 on (a.codvisitante = t2.nrotime) " +
                     "left join tabaposta p on (a.nrojogo = p.nrojogo)  " +
                     "where " +
-                    " nrojogador = " + String.valueOf(_nrojogador);
+                    " nrojogador = " + _nrojogador;
         }
         Cursor cursor = mDB.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
@@ -211,9 +208,9 @@ public class BancoDados extends SQLiteOpenHelper {
 
     public List<Jogador> allJogadores(int _rodada, boolean _total) {
 
-        List<Jogador> listJogador = new ArrayList<Jogador>();
+        List<Jogador> listJogador = new ArrayList<>();
         mDB = this.getWritableDatabase();
-        String sql = "";
+        String sql;
 //        if (_rodada != 0) {
         if (!_total) {
             sql = "select " +
@@ -223,7 +220,7 @@ public class BancoDados extends SQLiteOpenHelper {
                     "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
                     "left join tabtabela  on (tabaposta.nrojogo = tabtabela.nrojogo) " +
                     "where" +
-                    "  tabtabela.rodada = " + String.valueOf(_rodada) +
+                    "  tabtabela.rodada = " + _rodada +
                     " group by tabjogador.nrojogador " +
                     " order by totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ";
         } else {
@@ -242,7 +239,7 @@ public class BancoDados extends SQLiteOpenHelper {
                   "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
                   "left join tabtabela  on (tabaposta.nrojogo = tabtabela.nrojogo) " +
                   "where " +
-                  "  tabtabela.rodada <= " + String.valueOf(_rodada) +
+                  "  tabtabela.rodada <= " + _rodada +
                   "  group by tabjogador.nrojogador " +
                   "  order by totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ";
         }
@@ -273,7 +270,7 @@ public class BancoDados extends SQLiteOpenHelper {
 
     public List<Jogador> allParticipantes() {
 
-        List<Jogador> listJogador = new ArrayList<Jogador>();
+        List<Jogador> listJogador = new ArrayList<>();
         mDB = this.getWritableDatabase();
         String sql = "select " +
                      "  nrojogador, nome " +
@@ -298,9 +295,9 @@ public class BancoDados extends SQLiteOpenHelper {
 
     public List<Campeao> allCampeoes(int _nrojogador) {
 
-        List<Campeao> listCampeao = new ArrayList<Campeao>();
+        List<Campeao> listCampeao = new ArrayList<>();
         mDB = this.getWritableDatabase();
-        String sql = "";
+        String sql;
             sql = "select " +
                     "    tabtimes.nometime, tabtimes.escudotime, tabcampeao.pontos, tabcampeao.jogos, tabcampeao.vitorias, tabcampeao.empates, tabcampeao.derrotas, " +
                     "    tabcampeao.golspro, tabcampeao.golscontra, tabcampeao.saldo " +
@@ -308,7 +305,7 @@ public class BancoDados extends SQLiteOpenHelper {
                     "    tabcampeao " +
                     "left join tabtimes on (tabcampeao.codtime = tabtimes.nrotime) " +
                     "where " +
-                    "    tabcampeao.nrojogador = " + String.valueOf(_nrojogador) +
+                    "    tabcampeao.nrojogador = " + _nrojogador +
                     " order by " +
                     "    pontos desc, vitorias desc, saldo desc, golspro desc ";
         Cursor cursor = mDB.rawQuery(sql, null);
@@ -363,10 +360,10 @@ public class BancoDados extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        //ContentValues values = new ContentValues();
         switch (_pontos) {
             case 0://zera os pontos para caso o usuario colocar o placar pela segunda vez
-                db.execSQL("update tabaposta set pontos = 0, naveia = 0, naveiavisitante = 0 where nrojogo = "+String.valueOf(_nrojogo));
+                db.execSQL("update tabaposta set pontos = 0, naveia = 0, naveiavisitante = 0 where nrojogo = "+_nrojogo);
                 break;
             case 1://se acertar um dos gols
                 db.execSQL(" UPDATE tabaposta set pontos = 1 "+
@@ -374,7 +371,7 @@ public class BancoDados extends SQLiteOpenHelper {
                            "               select nro from tabaposta "+
                            "               left join tabtabela on (tabaposta.nrojogo = tabtabela.nrojogo) "+
                            "               where "+
-                           "                 tabaposta.nrojogo = "+String.valueOf(_nrojogo)+
+                           "                 tabaposta.nrojogo = "+_nrojogo+
                            "                 and (tabtabela.golsmandante = tabaposta.golsmandante OR tabtabela.golsvisitante = tabaposta.golsvisitante) "+
                            "                 and (tabtabela.vencedor <> tabaposta.vencedor) "+
                            "                 and (tabaposta.calcula = 'S'))");
@@ -385,7 +382,7 @@ public class BancoDados extends SQLiteOpenHelper {
                                 "               select nro from tabaposta "+
                                 "               left join tabtabela on (tabaposta.nrojogo = tabtabela.nrojogo) "+
                                 "               where "+
-                                "                 tabaposta.nrojogo = "+String.valueOf(_nrojogo)+
+                                "                 tabaposta.nrojogo = "+_nrojogo+
                                 "                 and (tabtabela.vencedor = tabaposta.vencedor) "+
                                 "                 and (tabtabela.golsmandante <> tabaposta.golsmandante and tabtabela.golsvisitante <> tabaposta.golsvisitante) "+
                                 "                 and (tabaposta.calcula = 'S'))");
@@ -396,7 +393,7 @@ public class BancoDados extends SQLiteOpenHelper {
                         "               select nro from tabaposta "+
                         "               left join tabtabela on (tabaposta.nrojogo = tabtabela.nrojogo) "+
                         "               where "+
-                        "                 tabaposta.nrojogo = "+String.valueOf(_nrojogo)+
+                        "                 tabaposta.nrojogo = "+_nrojogo+
                         "                 and (tabtabela.vencedor = tabaposta.vencedor) "+
                         "                 and (tabtabela.golsmandante = tabaposta.golsmandante OR tabtabela.golsvisitante = tabaposta.golsvisitante) "+
                         "                 and not(tabtabela.golsmandante = tabaposta.golsmandante and tabtabela.golsvisitante = tabaposta.golsvisitante) "+
@@ -408,7 +405,7 @@ public class BancoDados extends SQLiteOpenHelper {
                         "               select nro from tabaposta "+
                         "               left join tabtabela on (tabaposta.nrojogo = tabtabela.nrojogo) "+
                         "               where "+
-                        "                 tabaposta.nrojogo = "+String.valueOf(_nrojogo)+
+                        "                 tabaposta.nrojogo = "+_nrojogo+
                         "                 and (tabtabela.golsmandante = tabaposta.golsmandante and tabtabela.golsvisitante = tabaposta.golsvisitante) "+
                         "                 and (tabaposta.vencedor = 'V') "+
                         "                 and (tabaposta.calcula = 'S'))");
@@ -419,7 +416,7 @@ public class BancoDados extends SQLiteOpenHelper {
                         "               select nro from tabaposta "+
                         "               left join tabtabela on (tabaposta.nrojogo = tabtabela.nrojogo) "+
                         "               where "+
-                        "                 tabaposta.nrojogo = "+String.valueOf(_nrojogo)+
+                        "                 tabaposta.nrojogo = "+_nrojogo+
                         "                 and (tabtabela.golsmandante = tabaposta.golsmandante and tabtabela.golsvisitante = tabaposta.golsvisitante) "+
                         "                 and (tabaposta.vencedor = 'M' or tabaposta.empate = 'S') "+
                         "                 and (tabaposta.calcula = 'S'))");
@@ -445,6 +442,7 @@ public class BancoDados extends SQLiteOpenHelper {
         if (cursor != null) {
             cursor.moveToFirst();
         }
+        assert cursor != null;
         JogoTabela jogotabela = new JogoTabela(parseInt(cursor.getString(0)),
                                                parseInt(cursor.getString(1)),
                                                cursor.getString(2),
@@ -462,13 +460,13 @@ public class BancoDados extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
+        //ContentValues values = new ContentValues();
                 db.execSQL(" UPDATE tabaposta set " +
                         "    pontos = 0," +
                         "    naveia = 0," +
                         "    naveiavisitante = 0 "+
-                        " where nrojogo = "+String.valueOf(_nrojogo));
-        db.close();;
+                        " where nrojogo = "+_nrojogo);
+        db.close();
     }
 
     public void atualizaPosicaoPontuacao(int _rodada){
@@ -477,10 +475,10 @@ public class BancoDados extends SQLiteOpenHelper {
         //ContentValues values = new ContentValues();
         db.execSQL("DELETE from tabrodadapos " +
                    "where " +
-                   "  rodada = "+ String.valueOf(_rodada));
+                   "  rodada = "+ _rodada);
 
         db.execSQL("insert into tabrodadapos " +
-                   "select " +String.valueOf(_rodada) +
+                   "select " +_rodada +
                    ", nrojogador, ROW_NUMBER() OVER() AS posicao " +
                    "from " +
                    "(select " +
@@ -491,18 +489,18 @@ public class BancoDados extends SQLiteOpenHelper {
                    "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
                    "left join tabtabela  on (tabaposta.nrojogo = tabtabela.nrojogo) " +
                    "where " +
-                   "   tabtabela.rodada <= "+String.valueOf(_rodada) +
+                   "   tabtabela.rodada <= "+_rodada +
                    " group by " +
                    "   tabjogador.nrojogador " +
                    "order by " +
                    "   totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ) ");
-        db.close();;
+        db.close();
     }
 
     public int retornaRodada(){
 
         mDB = this.getWritableDatabase();
-        String sql = "";
+        String sql;
         //int rodada = 0;
         sql = "select max(rodada) as rodada from tabrodadapos ";
         Cursor cursor = mDB.rawQuery(sql, null);

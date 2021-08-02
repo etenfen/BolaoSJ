@@ -28,16 +28,28 @@ public class Criaarquivo {
     }
 
     public String SalvarPDF(Bitmap bitmap, String nomeDoArquivo) {
+
+        int A4Altura = 842;
+        int A4Largura = 595;
+        int numerodePaginas = (bitmap.getHeight()/A4Altura)+1;
+
+        Bitmap[] bitmaps = new Bitmap[numerodePaginas];
+        int alturaBitmap = bitmap.getHeight()/numerodePaginas;
+
         arquivo = new File(pasta,nomeDoArquivo + ".pdf");
         PdfDocument arquivoPDF = new PdfDocument();
-        PdfDocument.PageInfo info = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(),1).create();
-        PdfDocument.Page pagina = arquivoPDF.startPage(info);
+        for(int p=0; p < numerodePaginas; p++){
 
-        Canvas canvas = pagina.getCanvas();
+            bitmaps[p] = Bitmap.createBitmap(bitmap,0,p*alturaBitmap,bitmap.getWidth(),alturaBitmap);
+            PdfDocument.PageInfo info = new PdfDocument.PageInfo.Builder(bitmaps[p].getWidth(), A4Altura,p).create();
+            PdfDocument.Page pagina = arquivoPDF.startPage(info);
 
-        canvas.drawBitmap(bitmap,null, new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight()), null);
+            Canvas canvas = pagina.getCanvas();
 
-        arquivoPDF.finishPage(pagina);
+            canvas.drawBitmap(bitmaps[p],null, new Rect(0, 0, bitmaps[p].getWidth(), bitmaps[p].getHeight()), null);
+            arquivoPDF.finishPage(pagina);
+
+        }
         try {
             arquivo.createNewFile();
             OutputStream streamDeSaida = new FileOutputStream(arquivo);

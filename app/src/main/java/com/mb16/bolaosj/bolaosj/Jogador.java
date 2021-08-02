@@ -1,5 +1,7 @@
 package com.mb16.bolaosj.bolaosj;
 
+import android.support.annotation.NonNull;
+
 public class Jogador {
 
     int nroparticipante;
@@ -74,6 +76,7 @@ public class Jogador {
 
     public void setPosant(int posant) { this.posant = posant; }
 
+    @NonNull
     @Override
     public String toString()
     {

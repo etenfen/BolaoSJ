@@ -1,13 +1,9 @@
 package com.mb16.bolaosj.bolaosj;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -17,7 +13,6 @@ public class ActCampeao extends AppCompatActivity {
 
     private ListView lstCampeao;
     private int nrojogador;
-    private ParticipanteAdapter jadapter;
     Spinner cbRodadaCampeao;
     CampeaoAdapter data;
     BancoDados db = new BancoDados(this);
@@ -25,11 +20,12 @@ public class ActCampeao extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ParticipanteAdapter jadapter;
         setContentView(R.layout.act_campeao);
         setTitle("Campeão cfe Tabela");
 
-        lstCampeao = (ListView) findViewById(R.id.lstCampeao);
-        cbRodadaCampeao = (Spinner) findViewById(R.id.cbRodadaCampeao);
+        lstCampeao = findViewById(R.id.lstCampeao);
+        cbRodadaCampeao = findViewById(R.id.cbRodadaCampeao);
 
         ArrayList<Jogador> listajogadores = new ArrayList<>(db.allParticipantes());
         jadapter = new ParticipanteAdapter(this, listajogadores);

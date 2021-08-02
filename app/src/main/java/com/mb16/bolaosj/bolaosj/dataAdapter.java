@@ -23,7 +23,7 @@ public class dataAdapter extends ArrayAdapter<JogoTabela> {
         this.mjogotabela=jogotabela;
     }
 
-    public class Holder{
+    static class Holder{
         TextView tvmandante;
         TextView tvgolsmandante;
         TextView tvgolsvisitante;
@@ -50,17 +50,17 @@ public class dataAdapter extends ArrayAdapter<JogoTabela> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.layout_lista_jogos_tabela, parent, false);
 
-            viewHolder.tvmandante = (TextView) convertView.findViewById(R.id.tvmandante);
-            viewHolder.tvgolsmandante = (TextView) convertView.findViewById(R.id.tvgolsmandante);
-            viewHolder.tvgolsvisitante = (TextView) convertView.findViewById(R.id.tvgolsvisitante);
-            viewHolder.tvvisitante = (TextView) convertView.findViewById(R.id.tvvisitante);
-            viewHolder.imgmandante = (ImageView) convertView.findViewById(R.id.imgmandante);
-            viewHolder.imgvisitante = (ImageView) convertView.findViewById(R.id.imgvisitante);
-            viewHolder.tvpto5 = (TextView) convertView.findViewById(R.id.tvpto5);
-            viewHolder.tvpto3 = (TextView) convertView.findViewById(R.id.tvpto3);
-            viewHolder.tvpto2 = (TextView) convertView.findViewById(R.id.tvpto2);
-            viewHolder.tvpto1 = (TextView) convertView.findViewById(R.id.tvpto1);
-            viewHolder.tvpto0 = (TextView) convertView.findViewById(R.id.tvpto0);
+            viewHolder.tvmandante = convertView.findViewById(R.id.tvmandante);
+            viewHolder.tvgolsmandante = convertView.findViewById(R.id.tvgolsmandante);
+            viewHolder.tvgolsvisitante = convertView.findViewById(R.id.tvgolsvisitante);
+            viewHolder.tvvisitante = convertView.findViewById(R.id.tvvisitante);
+            viewHolder.imgmandante = convertView.findViewById(R.id.imgmandante);
+            viewHolder.imgvisitante = convertView.findViewById(R.id.imgvisitante);
+            viewHolder.tvpto5 = convertView.findViewById(R.id.tvpto5);
+            viewHolder.tvpto3 = convertView.findViewById(R.id.tvpto3);
+            viewHolder.tvpto2 = convertView.findViewById(R.id.tvpto2);
+            viewHolder.tvpto1 = convertView.findViewById(R.id.tvpto1);
+            viewHolder.tvpto0 = convertView.findViewById(R.id.tvpto0);
 
             convertView.setTag(viewHolder);
         } else {
