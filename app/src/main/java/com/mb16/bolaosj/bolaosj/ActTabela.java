@@ -14,8 +14,6 @@ public class ActTabela extends AppCompatActivity {
     private ListView lstAposta;
     ApostaAdapter data;
     private String nrojogadortabela;
-    //private String nomejogador;
-    //private int rodada;
     Spinner cbRodadaTabelas;
     BancoDados db = new BancoDados(this);
 

@@ -2,9 +2,9 @@ package com.mb16.bolaosj.bolaosj;
 
 public class Campeao {
 
-    int nro;
-    int nrojogador;
-    String nometime;
+    //int nro;
+    //int nrojogador;
+    //String nometime;
     byte[] escudotime;
     int pontos;
     int jogos;
@@ -19,7 +19,7 @@ public class Campeao {
 
     }
 
-    public Campeao(int _nro, int _nrojogador, String _nometime, byte[] _escudotime, int _pontos, int _jogos,
+/*    public Campeao(int _nro, int _nrojogador, String _nometime, byte[] _escudotime, int _pontos, int _jogos,
                    int _vitorias, int _empates, int _derrotas, int _golspro, int _golscontra, int _saldo) {
 
         this.nro = _nro;
@@ -35,19 +35,19 @@ public class Campeao {
         this.golscontra= _golscontra;
         this.saldo= _saldo;
 
-    }
+    }*/
 
-    public int getNro() { return nro; }
+    //public int getNro() { return nro; }
 
-    public void setNro(int nro) { this.nro = nro; }
+    //public void setNro(int nro) { this.nro = nro; }
 
-    public int getNrojogador() {  return nrojogador; }
+    //public int getNrojogador() {  return nrojogador; }
 
-    public void setNrojogador(int nrojogador) { this.nrojogador = nrojogador; }
+    //public void setNrojogador(int nrojogador) { this.nrojogador = nrojogador; }
 
-    public String getNometime() {  return nometime;  }
+    //public String getNometime() {  return nometime;  }
 
-    public void setNometime(String nometime) {  this.nometime = nometime;  }
+    //public void setNometime(String nometime) {  this.nometime = nometime;  }
 
     public byte[] getEscudotime() {  return escudotime; }
 
@@ -83,5 +83,5 @@ public class Campeao {
 
     public int getSaldo() {  return saldo; }
 
-    public void setSaldo(int saldo) {  this.saldo = saldo;}
+    //public void setSaldo(int saldo) {  this.saldo = saldo;}
 }

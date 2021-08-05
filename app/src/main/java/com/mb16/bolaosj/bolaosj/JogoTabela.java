@@ -23,7 +23,7 @@ public class JogoTabela {
 
     }
 
-    public JogoTabela(int _nrojogo, int _rodada, String _mandante, byte[] _escudomandante,
+/*    public JogoTabela(int _nrojogo, int _rodada, String _mandante, byte[] _escudomandante,
                       int _golsmandante, int _golsvisitante, String _visitante, byte[] _escudovisitante,
                       int _pto0, int _pto1, int _pto2, int _pto3, int _pto5) {
 
@@ -41,7 +41,7 @@ public class JogoTabela {
         this.pto3 = _pto3;
         this.pto5 = _pto5;
     }
-
+*/
 
     public JogoTabela(int _nrojogo, int _rodada, String _mandante, byte[] _escudomandante,
                       int _golsmandante, int _golsvisitante, String _visitante, byte[] _escudovisitante) {
@@ -58,7 +58,7 @@ public class JogoTabela {
 
 
 
-    public JogoTabela(int _nrojogo, int _rodada, String _mandante, byte[] _escudomandante,
+/*    public JogoTabela(int _nrojogo, int _rodada, String _mandante, byte[] _escudomandante,
                       int _golsmandante, int _golsvisitante, String _visitante, byte[] _escudovisitante,
                       String _vencedor, String _empate ) {
 
@@ -74,7 +74,7 @@ public class JogoTabela {
         this.escudovisitante = _escudovisitante;
 
     }
-
+*/
     //=====================================================================================
     public int getNrojogo() {
         return nrojogo;

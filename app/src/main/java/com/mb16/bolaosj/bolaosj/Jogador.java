@@ -15,21 +15,21 @@ public class Jogador {
 
     }
 
-    public Jogador(int _nroparticipante, String _nome, int _pontos, int _naveia, int _naveiavisitante, int _posant){
+/*    public Jogador(int _nroparticipante, String _nome, int _pontos, int _naveia, int _naveiavisitante, int _posant){
         this.nroparticipante = _nroparticipante;
         this.nome = _nome;
         this.pontos = _pontos;
         this.naveia = _naveia;
         this.naveiavisitante = _naveiavisitante;
         this.posant = _posant;
-    }
+    }*/
 
-    public Jogador(String _nome, int _pontos, int _naveia, int _naveiavisitante){
+    /*public Jogador(String _nome, int _pontos, int _naveia, int _naveiavisitante){
         this.nome = _nome;
         this.pontos = _pontos;
         this.naveia = _naveia;
         this.naveiavisitante = _naveiavisitante;
-    }
+    }*/
 
     //=========================================================================
     public int getNroparticipante() {
