@@ -5,9 +5,13 @@
     <string name="sair">Sair</string>
     <string name="total">Total</string>
     <string name="por_rodada">Rodada</string>
-    <string name="gerar_pdf">Gerar_PDF</string>
+    <string name="gerar_pdf">PDF</string>
     <string name="comp">Comp</string>
     <string name="campeao">Campeão cfe Tabela</string>
+    <string name="nome">Nome</string>
+    <string name="pontos">PTOS</string>
+    <string name="nv">NV</string>
+    <string name="nvv">NVV</string>
     <string-array name="rodadas">
         <item>Rodada 1</item>
         <item>Rodada 2</item>

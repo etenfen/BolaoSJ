@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/layoutitem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/layoutregistros"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
             <TextView
@@ -35,14 +25,15 @@
                 android:id="@+id/imgdifpos"
                 android:layout_width="10dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="right"/>
+                android:background="@android:color/transparent"
+                android:layout_gravity="end"/>
 
             <TextView
                 android:id="@+id/tvdifpos"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
-                android:gravity="left|center_vertical"
-                android:textSize="11sp"
+                android:gravity="start|center_vertical"
+                android:textSize="12sp"
                 android:layout_marginRight="2dp"
                 android:layout_marginLeft="2dp"/>
 
@@ -51,7 +42,7 @@
                 android:layout_width="195dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Nome" />
+                android:text="@string/nome" />
 
             <TextView
                 android:id="@+id/tvpontos"
@@ -59,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="PTOS" />
+                android:text="@string/pontos" />
 
             <TextView
                 android:id="@+id/tvnaveia"
@@ -67,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="NV" />
+                android:text="@string/nv" />
 
             <TextView
                 android:id="@+id/tvnaveiavisitante"
@@ -75,17 +66,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="NVV" />
+                android:text="@string/nvv" />
         </LinearLayout>
-
         <View
             android:layout_width="fill_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
             android:background="@color/bootstrap_gray"
             android:focusable="false"
-            android:layout_height="1dp" />
-
-    </LinearLayout>
+            android:layout_height="1dp"/>
 
 </RelativeLayout>

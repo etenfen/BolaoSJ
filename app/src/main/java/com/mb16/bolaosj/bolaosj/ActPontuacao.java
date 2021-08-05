@@ -1,6 +1,5 @@
 package com.mb16.bolaosj.bolaosj;
 
-import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,9 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ShareCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,13 +26,9 @@ import java.util.ArrayList;
 
 public class ActPontuacao extends AppCompatActivity {
     private RecyclerView mRecyclerViewPontuacao;
-    //private PontuacaoAdapter adapter;
-    //private List<Jogador> jogadores;
     private int porrodada;
     Spinner cbRodadaPontos;
     BancoDados db = new BancoDados(this);
-    //private Jogador todosjogadores;
-    //private LinearLayoutManager mLayoutManagertodosjogadores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +67,7 @@ public class ActPontuacao extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         Bitmap bitmapRecycler = fotoDoRecyclerView(mRecyclerViewPontuacao);
-        String nomeArquivo = "pontuacao";
         File pasta = new File(this.getFilesDir(), "/mypdf/");
 
         int id = item.getItemId();
@@ -84,55 +75,41 @@ public class ActPontuacao extends AppCompatActivity {
             cbRodadaPontos.setVisibility(View.GONE);
             porrodada = db.retornaRodada();
             atualizarPontuacao(porrodada, true);
+            porrodada = 0;
             return true;
         }
         if (id == R.id.porrodada) {
             cbRodadaPontos.setVisibility(View.VISIBLE);
-
             porrodada = cbRodadaPontos.getSelectedItemPosition() + 1;
             atualizarPontuacao(porrodada, false);
             return true;
         }
         if (id == R.id.gerar_pdf) {
-            Criaarquivo criaarquivo = new Criaarquivo(pasta, getApplicationContext());
+
+            //Criaarquivo criaarquivo = new Criaarquivo(pasta, getApplicationContext());
+            Criaarquivo criaarquivo = new Criaarquivo(pasta);
+            String nomeArquivo;
+            if (porrodada == 0) {
+                nomeArquivo = "pontuacaototal";
+            } else {
+                nomeArquivo = "pontuacaorodada";
+            }
             String criando = criaarquivo.SalvarPDF(bitmapRecycler, nomeArquivo);
             if (criando.equals("sucesso")) {
-                Toast.makeText(this, "Arquivo criado com sucesso", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, criando, Toast.LENGTH_LONG).show();
-            }
-
-            return true;
-        }
-        if (id == R.id.comp) {
-
+                Toast.makeText(this, "Arquivo criado com sucesso", Toast.LENGTH_SHORT).show();
                 File documentsPath = new File(this.getFilesDir(), "/mypdf/");
-                File file = new File(documentsPath, nomeArquivo+".pdf");
+                File file = new File(documentsPath, nomeArquivo + ".pdf");
                 Uri uri = FileProvider.getUriForFile(ActPontuacao.this, "com.mb16.bolaosj.bolaosj.provider", file);
 
                 Intent intent = new Intent();
                 intent.setType("application/pdf");
                 intent.putExtra(Intent.EXTRA_STREAM, uri);
                 intent.setAction(Intent.ACTION_SEND);
-                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION|Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 startActivity(intent);
-
-            /* COMPARTILHAR ARQUIVO EMAIL
-            int permissionCheck = this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-            final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
-            if (permissionCheck == 0) {
-                this.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+            } else {
+                Toast.makeText(this, criando, Toast.LENGTH_LONG).show();
             }
-
-            Intent intent = new Intent();
-               //intent.setType("application/pdf");
-               // intent.putExtra(Intent.EXTRA_STREAM, uri);
-            intent.setAction(Intent.ACTION_SENDTO);
-            intent.setData(Uri.parse("mailto:"));
-            intent.putExtra(Intent.EXTRA_STREAM,Uri.parse("file://"+pasta+"/"+nomeArquivo+".pdf"));
-            //intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(intent);*/
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -190,10 +167,7 @@ public class ActPontuacao extends AppCompatActivity {
                 alturaVolatil += bitmap.getHeight();
                 bitmap.recycle();
             }
-
         }//if adapter != null
-
         return bitmapPronto;
     }
-
 }

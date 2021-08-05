@@ -26,9 +26,6 @@ import java.util.ArrayList;
 
 public class ActPrincipal extends AppCompatActivity {
 
-//    final String[] listarodadas = new String[]{"Rodada 1", "Rodada 2", "Rodada 3", "Rodada 4", "Rodada 5", "Rodada 6", "Rodada 7",
-//           "Rodada 8", "Rodada 9", "Rodada 10"};
-
     private JogoTabela dataModel;
     EditText tvgolsmandante, tvgolsvisitante;
     TextView edNroJogo, tvmandante, tvvisitante;
@@ -70,7 +67,6 @@ public class ActPrincipal extends AppCompatActivity {
         btnSalvar.setOnClickListener(view -> {
 
             String nrojogo = edNroJogo.getText().toString();
-            //Integer rodada = cbRodada.getSelectedItemPosition()+1;
             if (nrojogo.isEmpty()) {
 
                 AlertDialog.Builder mensagem = new AlertDialog.Builder(ActPrincipal.this);
@@ -82,14 +78,12 @@ public class ActPrincipal extends AppCompatActivity {
 
             }
             String golsmandante = tvgolsmandante.getText().toString();
-            //if (golsmandante == null || golsmandante.equals("")) {
             if (golsmandante.equals("")) {
                 tvgolsmandante.setError("Campo obrigatório");
                 return;
             }
 
             String golsvisitante = tvgolsvisitante.getText().toString();
-            //if (golsvisitante == null || golsvisitante.equals("")) {
             if (golsvisitante.equals("")) {
                 tvgolsvisitante.setError("Campo obrigatório");
                 return;
@@ -114,10 +108,7 @@ public class ActPrincipal extends AppCompatActivity {
             jogotabela.setVencedor(vencedor);
 
             db.atualizaJogoTabela(jogotabela, true);
-
             db.atualizaPosicaoPontuacao(cbRodada.getSelectedItemPosition()+1);
-
-            //Toast.makeText(ActPrincipal.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
 
             JogoTabela jogotabela1 = db.selecionarJogoTabela(jogotabela.getNrojogo());
             listarjogotabela(jogotabela1.getRodada());
@@ -139,8 +130,8 @@ public class ActPrincipal extends AppCompatActivity {
                 mensagem.show();
                 return;
             }
-
-            db.limpaPontosJogo(Integer.parseInt(nrojogo));
+            db.atualizaJogoAposta(Integer.parseInt(nrojogo),0);
+            //db.limpaPontosJogo(Integer.parseInt(nrojogo));
 
             JogoTabela jogotabela = new JogoTabela();
             jogotabela.setNrojogo(Integer.parseInt(nrojogo));
@@ -150,6 +141,7 @@ public class ActPrincipal extends AppCompatActivity {
             jogotabela.setVencedor("N");
 
             db.atualizaJogoTabela(jogotabela, false);
+
             JogoTabela jogotabela1 = db.selecionarJogoTabela(jogotabela.getNrojogo());
             listarjogotabela(jogotabela1.getRodada());
             limpartodosCampos();
@@ -193,9 +185,7 @@ public class ActPrincipal extends AppCompatActivity {
             return true;
         }
         if (id == R.id.campeao) {
-            //String rodada = String.valueOf(cbRodada.getSelectedItemPosition()+1);
             Intent intent = new Intent(getApplicationContext(), ActCampeao.class);
-            //intent.putExtra("rodada",rodada);
             startActivity(intent);
             return true;
         }

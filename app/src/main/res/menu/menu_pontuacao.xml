@@ -3,30 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/comp"
-        android:orderInCategory="100"
-        android:title="@string/comp"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/gerar_pdf"
         android:orderInCategory="100"
         android:title="@string/gerar_pdf"
-        android:icon="@drawable/compartilhar"
+        android:icon="@drawable/testecomp"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/total"
         android:orderInCategory="100"
         android:title="@string/total"
-        android:icon="@drawable/ic_total"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/porrodada"
         android:orderInCategory="100"
         android:title="@string/por_rodada"
-        android:icon="@drawable/ic_rodada"
         app:showAsAction="always" />
 
 </menu>

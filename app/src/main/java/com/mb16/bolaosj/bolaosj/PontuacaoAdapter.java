@@ -1,7 +1,9 @@
 package com.mb16.bolaosj.bolaosj;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -19,8 +21,6 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
 
     final Context context;
     final List<Jogador> mJogadorList;
-    //private List<Jogador> jogadores;
-    //private List<Jogador> todosJogadores;
     private Jogador dataModel;
     private static int porrodada;
     private static boolean total;
@@ -42,6 +42,7 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
         return new PontuacaoAdapter.ViewHolder(itemView);
     }
 
+    @SuppressLint("ResourceAsColor")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(@NonNull PontuacaoAdapter.ViewHolder holder, int position) {
@@ -49,20 +50,35 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
         final Jogador item = mJogadorList.get(position);
         int posant = item.getPosant();
         int difpos = posant - (position +1);
+        if (total) {
+            int tamanho = mJogadorList.size();
+            if (position == 0) {
+                holder.itemView.setBackgroundColor(Color.parseColor("#add8e6"));
+            } else {
+                if ((position == 1) || (position == 2) || (position == 3) || (position == 4) || (position == 5) || (position == 6) || (position == 7)) {
+                    holder.itemView.setBackgroundColor(Color.parseColor("#00ff7f"));
+                } else {
+                    if ((position == (tamanho - 1)) || (position == (tamanho - 2)) || (position == (tamanho - 3)) || (position == (tamanho - 4))) {
+                        holder.itemView.setBackgroundColor(Color.parseColor("#ff6b00"));
+                    } else {
+                        holder.itemView.setBackgroundColor(Color.parseColor("#f0fff0"));
+                    }
+                }
+            }
+        }
 
         if (difpos == 0) {
             holder.tvdifpos.setText(String.valueOf(difpos));
-            holder.imgdifpos.setImageDrawable(context.getDrawable(R.drawable.neutro));
+            holder.imgdifpos.setImageDrawable(context.getDrawable(R.drawable.neutroge));
         } else {
             if (difpos > 0) {
-                holder.imgdifpos.setImageDrawable(context.getDrawable(R.drawable.setacima));
+                holder.imgdifpos.setImageDrawable(context.getDrawable(R.drawable.setacimage));
                 holder.tvdifpos.setText("+" + difpos);
             } else {
-                holder.imgdifpos.setImageDrawable(context.getDrawable(R.drawable.setabaixo));
+                holder.imgdifpos.setImageDrawable(context.getDrawable(R.drawable.setabaixoge));
                 holder.tvdifpos.setText(String.valueOf(difpos));
             }
         }
-        //holder.tvdifpos.setText(String.valueOf(difpos));
         holder.tvposicao.setText(String.valueOf(position + 1));
         holder.tvnome.setText(item.getNome());
         holder.tvpontos.setText(String.valueOf(item.getPontos()));

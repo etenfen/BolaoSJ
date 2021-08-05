@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,14 +18,13 @@ public class BancoDados extends SQLiteOpenHelper {
 
     public static final int VERSAOBANCO = 1;
     public static final String NOMEBANCO = "bolao.sqlite";
-    //public static String DBPATH = "/data/data/com.mb16.bolaosj.bolaosj/databases/";
-    //public String DBPATH;// "/data/data/com.mb16.bolaosj.bolaosj/databases/";
-    //private Context context;
+    public static String DBPATH = "/data/data/com.mb16.bolaosj.bolaosj/databases/";
     private SQLiteDatabase mDB;
+    Context context;
 
     public BancoDados(Context context) {
         super(context, NOMEBANCO, null, VERSAOBANCO);
-        //this.context = context;
+        this.context = context;
     }
 
     @Override
@@ -43,16 +41,14 @@ public class BancoDados extends SQLiteOpenHelper {
         String dbPath = context.getDatabasePath(NOMEBANCO).getPath();
         if (mDB != null && mDB.isOpen()) return;
         mDB = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READWRITE);
-    }*/
+    }
 
-/*    public void closeDatabase() {
+    public void closeDatabase() {
         if (mDB != null) mDB.close();
     }*/
 
     public boolean copiaBanco(Context context) {
         try {
-            String DBPATH = context.getFilesDir().getPath();
-            Log.d("banco",DBPATH);
             InputStream inputStream = context.getAssets().open(NOMEBANCO);
             String outFile = DBPATH + NOMEBANCO;
             OutputStream outputStream = new FileOutputStream(outFile);
@@ -233,7 +229,7 @@ public class BancoDados extends SQLiteOpenHelper {
                     "  order by totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ";*/
             sql = "select " +
                   "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante, " +
-                  "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + String.valueOf(_rodada-1) +") as posant " +
+                  "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + (_rodada-1) +") as posant " +
                   "from " +
                   "  tabaposta " +
                   "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
@@ -351,12 +347,11 @@ public class BancoDados extends SQLiteOpenHelper {
             atualizaJogoAposta(nrojogo, 3);
             atualizaJogoAposta(nrojogo, 4);
             atualizaJogoAposta(nrojogo, 5);
-
         }
         db.close();
     }
 
-    private void atualizaJogoAposta(int _nrojogo, int _pontos) {
+    public void atualizaJogoAposta(int _nrojogo, int _pontos) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -456,23 +451,19 @@ public class BancoDados extends SQLiteOpenHelper {
         return jogotabela;
     }
 
-    public void limpaPontosJogo(int _nrojogo) {
+/*    public void limpaPontosJogo(int _nrojogo) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
-        //ContentValues values = new ContentValues();
-                db.execSQL(" UPDATE tabaposta set " +
-                        "    pontos = 0," +
-                        "    naveia = 0," +
-                        "    naveiavisitante = 0 "+
-                        " where nrojogo = "+_nrojogo);
+        db.execSQL(" UPDATE tabaposta set " +
+                   "    pontos = 0," +
+                   "    naveia = 0," +
+                   "    naveiavisitante = 0 "+
+                   " where nrojogo = "+_nrojogo);
         db.close();
-    }
+    }*/
 
     public void atualizaPosicaoPontuacao(int _rodada){
-        Log.d("entrou no sistema ", String.valueOf(_rodada));
         SQLiteDatabase db = this.getWritableDatabase();
-        //ContentValues values = new ContentValues();
         db.execSQL("DELETE from tabrodadapos " +
                    "where " +
                    "  rodada = "+ _rodada);
@@ -483,7 +474,7 @@ public class BancoDados extends SQLiteOpenHelper {
                    "from " +
                    "(select " +
                    "   tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante, " +
-                   "   (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + String.valueOf(_rodada-1) + ") as posant " +
+                   "   (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + (_rodada-1) + ") as posant " +
                    "from " +
                    "   tabaposta " +
                    "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
@@ -501,12 +492,16 @@ public class BancoDados extends SQLiteOpenHelper {
 
         mDB = this.getWritableDatabase();
         String sql;
-        //int rodada = 0;
         sql = "select max(rodada) as rodada from tabrodadapos ";
         Cursor cursor = mDB.rawQuery(sql, null);
         cursor.moveToFirst();
-            //rodada = Integer.parseInt(cursor.getString(0));
-        int rodada = Integer.parseInt(cursor.getString(cursor.getColumnIndex("rodada")));
+        int rodada;
+        try{
+           rodada = Integer.parseInt(cursor.getString(cursor.getColumnIndex("rodada")));
+        } catch (Exception e) {
+            rodada = 1;
+        }
+
         cursor.close();
         mDB.close();
 

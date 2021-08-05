@@ -4,7 +4,7 @@ public class Campeao {
 
     //int nro;
     //int nrojogador;
-    //String nometime;
+    String nometime;
     byte[] escudotime;
     int pontos;
     int jogos;
@@ -47,7 +47,7 @@ public class Campeao {
 
     //public String getNometime() {  return nometime;  }
 
-    //public void setNometime(String nometime) {  this.nometime = nometime;  }
+    public void setNometime(String nometime) {  this.nometime = nometime;  }
 
     public byte[] getEscudotime() {  return escudotime; }
 
