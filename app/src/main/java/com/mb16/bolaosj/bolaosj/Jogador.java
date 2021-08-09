@@ -10,6 +10,7 @@ public class Jogador {
     int naveia;
     int naveiavisitante;
     int posant;
+    int posatual;
 
     public Jogador() {
 
@@ -75,6 +76,11 @@ public class Jogador {
     public int getPosant() { return posant; }
 
     public void setPosant(int posant) { this.posant = posant; }
+
+    public int getPosatual() { return posatual; }
+
+    public void setPosatual(int posatual) { this.posatual = posatual; }
+
 
     @NonNull
     @Override

@@ -18,17 +18,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActPontuacao extends AppCompatActivity {
     private RecyclerView mRecyclerViewPontuacao;
     private int porrodada;
+    private boolean total;
     Spinner cbRodadaPontos;
     BancoDados db = new BancoDados(this);
+    List<Jogador> jogadores = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +40,20 @@ public class ActPontuacao extends AppCompatActivity {
         setContentView(R.layout.act_pontuacao);
         Intent it = getIntent();
         porrodada = Integer.parseInt(it.getStringExtra("rodada"));
+        total = false;
         setTitle("Pontuação");
 
         mRecyclerViewPontuacao = findViewById(R.id.mRecyclerViewPontuacao);
         cbRodadaPontos = findViewById(R.id.cbRodadaPontos);
         cbRodadaPontos.setSelection(porrodada - 1);
 
-        atualizarPontuacao(porrodada, false);
+        atualizarPontuacao(porrodada, total,"");
 
         cbRodadaPontos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                 porrodada = position + 1;
-                atualizarPontuacao(porrodada, false);
+                atualizarPontuacao(porrodada, false,"");
             }
 
             @Override
@@ -61,7 +66,24 @@ public class ActPontuacao extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_pontuacao, menu);
-        return true;
+        MenuItem busca = menu.findItem(R.id.busca);
+        SearchView edbusca = (SearchView) busca.getActionView();
+        edbusca.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                atualizarPontuacao(porrodada,total,newText);
+                return false;
+            }
+        });
+
+
+        //return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -74,14 +96,15 @@ public class ActPontuacao extends AppCompatActivity {
         if (id == R.id.total) {
             cbRodadaPontos.setVisibility(View.GONE);
             porrodada = db.retornaRodada();
-            atualizarPontuacao(porrodada, true);
-            porrodada = 0;
+            total = true;
+            atualizarPontuacao(porrodada, total,"");
             return true;
         }
         if (id == R.id.porrodada) {
             cbRodadaPontos.setVisibility(View.VISIBLE);
             porrodada = cbRodadaPontos.getSelectedItemPosition() + 1;
-            atualizarPontuacao(porrodada, false);
+            total = false;
+            atualizarPontuacao(porrodada, total,"");
             return true;
         }
         if (id == R.id.gerar_pdf) {
@@ -89,7 +112,7 @@ public class ActPontuacao extends AppCompatActivity {
             //Criaarquivo criaarquivo = new Criaarquivo(pasta, getApplicationContext());
             Criaarquivo criaarquivo = new Criaarquivo(pasta);
             String nomeArquivo;
-            if (porrodada == 0) {
+            if (total){
                 nomeArquivo = "pontuacaototal";
             } else {
                 nomeArquivo = "pontuacaorodada";
@@ -115,14 +138,19 @@ public class ActPontuacao extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void atualizarPontuacao(int _rodada, boolean _total) {
+    private void atualizarPontuacao(int _rodada, boolean _total, String _nome) {
         PontuacaoAdapter adapter;
         LinearLayoutManager mLayoutManagertodosjogadores;
 
         mRecyclerViewPontuacao.setHasFixedSize(true);
         mLayoutManagertodosjogadores = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerViewPontuacao.setLayoutManager(mLayoutManagertodosjogadores);
-        final ArrayList<Jogador> jogadores = new ArrayList<>(db.allJogadores(_rodada, _total));
+        //final ArrayList<Jogador> jogadores = new ArrayList<>(db.allJogadores(_rodada, _total));
+        if (_nome.equals("")){
+            jogadores = db.allJogadores(_rodada, _total,false,_nome);
+        } else{
+            jogadores = db.allJogadores(_rodada, _total,true,_nome);
+        }
         adapter = new PontuacaoAdapter(jogadores, this, _rodada, _total);
         mRecyclerViewPontuacao.setAdapter(adapter);
     }

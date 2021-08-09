@@ -202,43 +202,44 @@ public class BancoDados extends SQLiteOpenHelper {
         return listJogoAposta;
     }
 
-    public List<Jogador> allJogadores(int _rodada, boolean _total) {
+    public List<Jogador> allJogadores(int _rodada, boolean _total, boolean _busca, String _strnome) {
 
         List<Jogador> listJogador = new ArrayList<>();
         mDB = this.getWritableDatabase();
         String sql;
-//        if (_rodada != 0) {
+
         if (!_total) {
             sql = "select " +
                     "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante " +
+//                    "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + (_rodada-1) +") as posant, " +
+//                    "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + _rodada +") as posatual " +
                    "from " +
                     "  tabaposta " +
                     "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
                     "left join tabtabela  on (tabaposta.nrojogo = tabtabela.nrojogo) " +
                     "where" +
-                    "  tabtabela.rodada = " + _rodada +
-                    " group by tabjogador.nrojogador " +
-                    " order by totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ";
+                    "  tabtabela.rodada = " + _rodada;
+            if (_busca){
+                sql += "  and tabjogador.nome like '%"+_strnome+"%' ";
+            }
         } else {
-/*            sql = "select " +
-                    "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante " +
-                    "from " +
-                    "  tabaposta " +
-                    "     left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
-                    "  group by tabjogador.nrojogador " +
-                    "  order by totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ";*/
             sql = "select " +
                   "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante, " +
                   "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + (_rodada-1) +") as posant " +
+//                  "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + _rodada +") as posatual " +
                   "from " +
                   "  tabaposta " +
                   "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
                   "left join tabtabela  on (tabaposta.nrojogo = tabtabela.nrojogo) " +
                   "where " +
-                  "  tabtabela.rodada <= " + _rodada +
-                  "  group by tabjogador.nrojogador " +
-                  "  order by totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ";
+                  "  tabtabela.rodada <= " + _rodada;
+            if (_busca){
+                sql += "  and tabjogador.nome like '%"+_strnome+"%' ";
+            }
         }
+        sql +=  " group by tabjogador.nrojogador " +
+                " order by totalpontos desc, totalnaveia desc, totalnaveiavisitante desc ";
+
         Cursor cursor = mDB.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {
@@ -250,10 +251,11 @@ public class BancoDados extends SQLiteOpenHelper {
                 jogador.setNaveia(parseInt(cursor.getString(3)));
                 jogador.setNaveiavisitante(parseInt(cursor.getString(4)));
                 try {
-                   jogador.setPosant(parseInt(cursor.getString(5)));
-                } catch (Exception ex) {
-                    jogador.setPosant(0);
-                }
+                      jogador.setPosant(parseInt(cursor.getString(5)));
+                    } catch (Exception ex) {
+                        jogador.setPosant(0);
+                    }
+
                 listJogador.add(jogador);
 
             } while (cursor.moveToNext());
@@ -266,7 +268,7 @@ public class BancoDados extends SQLiteOpenHelper {
 
     public List<Jogador> allParticipantes() {
 
-        List<Jogador> listJogador = new ArrayList<>();
+        List<Jogador> listParticipante = new ArrayList<>();
         mDB = this.getWritableDatabase();
         String sql = "select " +
                      "  nrojogador, nome " +
@@ -279,14 +281,14 @@ public class BancoDados extends SQLiteOpenHelper {
                 Jogador jogador = new Jogador();
                 jogador.setNroparticipante(parseInt(cursor.getString(0)));
                 jogador.setNome(cursor.getString(1));
-                listJogador.add(jogador);
+                listParticipante.add(jogador);
 
             } while (cursor.moveToNext());
         }
         cursor.close();
         mDB.close();
 
-        return listJogador;
+        return listParticipante;
     }
 
     public List<Campeao> allCampeoes(int _nrojogador) {

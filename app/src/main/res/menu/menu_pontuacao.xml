@@ -21,4 +21,12 @@
         android:title="@string/por_rodada"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/busca"
+        android:orderInCategory="100"
+        android:title="@string/busca"
+        android:icon="@drawable/ic_launcher_background"
+        app:showAsAction="always"
+        app:actionViewClass="android.widget.SearchView"/>
+
 </menu>

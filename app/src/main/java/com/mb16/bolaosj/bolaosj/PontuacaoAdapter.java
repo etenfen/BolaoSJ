@@ -49,8 +49,11 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
 
         final Jogador item = mJogadorList.get(position);
         int posant = item.getPosant();
+        //int posatual = item.getPosatual();
         int difpos = posant - (position +1);
+
         if (total) {
+            //difpos = posant - posatual;
             int tamanho = mJogadorList.size();
             if (position == 0) {
                 holder.itemView.setBackgroundColor(Color.parseColor("#add8e6"));
@@ -80,6 +83,7 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
             }
         }
         holder.tvposicao.setText(String.valueOf(position + 1));
+        //holder.tvposicao.setText(String.valueOf(posatual));
         holder.tvnome.setText(item.getNome());
         holder.tvpontos.setText(String.valueOf(item.getPontos()));
         holder.tvnaveia.setText(String.valueOf(item.getNaveia()));
