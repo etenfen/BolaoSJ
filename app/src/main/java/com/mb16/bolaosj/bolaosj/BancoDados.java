@@ -133,7 +133,8 @@ public class BancoDados extends SQLiteOpenHelper {
         if (_rodada != 0 && _nrojogador != 0) {
             sql = "SELECT " +
                     "   a.nrojogo, a.rodada, t.nometime as mandante, t.escudotime, p.golsmandante," +
-                    "   p.golsvisitante, t2.nometime as visitante, t2.escudotime, p.pontos, p.naveia, p.naveiavisitante " +
+                    "   p.golsvisitante, t2.nometime as visitante, t2.escudotime, p.pontos, p.naveia, p.naveiavisitante, " +
+                    "   a.golsmandante, a.golsvisitante " +
                     "from " +
                     "   tabtabela a " +
                     "left join tabtimes t on (a.codmandante = t.nrotime) " +
@@ -146,7 +147,8 @@ public class BancoDados extends SQLiteOpenHelper {
         if (_rodada == 0 && _nrojogador == 0) {
             sql = "SELECT " +
                     "   a.nrojogo, a.rodada, t.nometime as mandante, t.escudotime, p.golsmandante," +
-                    "   p.golsvisitante, t2.nometime as visitante, t2.escudotime, p.pontos, p.naveia, p.naveiavisitante " +
+                    "   p.golsvisitante, t2.nometime as visitante, t2.escudotime, p.pontos, p.naveia, p.naveiavisitante, " +
+                    "   a.golsmandante, a.golsvisitante " +
                     "from " +
                     "   tabtabela a " +
                     "left join tabtimes t on (a.codmandante = t.nrotime) " +
@@ -157,7 +159,8 @@ public class BancoDados extends SQLiteOpenHelper {
         if (_rodada != 0 && _nrojogador == 0) {
             sql = "SELECT " +
                     "   a.nrojogo, a.rodada, t.nometime as mandante, t.escudotime, p.golsmandante," +
-                    "   p.golsvisitante, t2.nometime as visitante, t2.escudotime, p.pontos, p.naveia, p.naveiavisitante " +
+                    "   p.golsvisitante, t2.nometime as visitante, t2.escudotime, p.pontos, p.naveia, p.naveiavisitante, " +
+                    "   a.golsmandante, a.golsvisitante " +
                     "from " +
                     "   tabtabela a " +
                     "left join tabtimes t on (a.codmandante = t.nrotime) " +
@@ -169,7 +172,8 @@ public class BancoDados extends SQLiteOpenHelper {
         if (_rodada == 0 && _nrojogador != 0) {
             sql = "SELECT " +
                     "   a.nrojogo, a.rodada, t.nometime as mandante, t.escudotime, p.golsmandante," +
-                    "   p.golsvisitante, t2.nometime as visitante, t2.escudotime, p.pontos, p.naveia, p.naveiavisitante " +
+                    "   p.golsvisitante, t2.nometime as visitante, t2.escudotime, p.pontos, p.naveia, p.naveiavisitante, " +
+                    "   a.golsmandante, a.golsvisitante " +
                     "from " +
                     "   tabtabela a " +
                     "left join tabtimes t on (a.codmandante = t.nrotime) " +
@@ -193,6 +197,9 @@ public class BancoDados extends SQLiteOpenHelper {
                 jogoaposta.setPontos(parseInt(cursor.getString(8)));
                 jogoaposta.setNaveia(parseInt(cursor.getString(9)));
                 jogoaposta.setNaveiavisitante(parseInt(cursor.getString(10)));
+                jogoaposta.setGolsmandantetabela(parseInt(cursor.getString(11)));
+                jogoaposta.setGolsvisitantetabela(parseInt(cursor.getString(12)));
+
                 listJogoAposta.add(jogoaposta);
 
             } while (cursor.moveToNext());
@@ -210,9 +217,9 @@ public class BancoDados extends SQLiteOpenHelper {
 
         if (!_total) {
             sql = "select " +
-                    "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante " +
-//                    "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + (_rodada-1) +") as posant, " +
-//                    "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + _rodada +") as posatual " +
+                    "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante, " +
+                    "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + (_rodada-1) +") as posant, " +
+                    "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + _rodada +") as posatual " +
                    "from " +
                     "  tabaposta " +
                     "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
@@ -225,8 +232,8 @@ public class BancoDados extends SQLiteOpenHelper {
         } else {
             sql = "select " +
                   "  tabjogador.nrojogador, tabjogador.nome, sum(pontos) as totalpontos, sum(naveia) as totalnaveia, sum(naveiavisitante) as totalnaveiavisitante, " +
-                  "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + (_rodada-1) +") as posant " +
-//                  "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + _rodada +") as posatual " +
+                  "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + (_rodada-1) +") as posant, " +
+                  "  (select posicao from tabrodadapos where nrojogador = tabjogador.nrojogador and rodada = " + _rodada +") as posatual " +
                   "from " +
                   "  tabaposta " +
                   "left join tabjogador on (tabaposta.nrojogador = tabjogador.nrojogador) " +
@@ -255,6 +262,11 @@ public class BancoDados extends SQLiteOpenHelper {
                     } catch (Exception ex) {
                         jogador.setPosant(0);
                     }
+                try {
+                    jogador.setPosatual(parseInt(cursor.getString(6)));
+                } catch (Exception ex) {
+                    jogador.setPosatual(0);
+                }
 
                 listJogador.add(jogador);
 

@@ -27,8 +27,10 @@ public class ApostaAdapter extends ArrayAdapter<JogoAposta> {
 
     static class Holder{
         TextView tvmandante;
-        TextView tvgolsmandante;
-        TextView tvgolsvisitante;
+        TextView tvgolsmandanteaposta;
+        TextView tvgolsvisitanteaposta;
+        TextView tvgolsmandantetabela;
+        TextView tvgolsvisitantetabela;
         TextView tvvisitante;
         ImageView imgmandante;
         ImageView imgvisitante;
@@ -52,8 +54,10 @@ public class ApostaAdapter extends ArrayAdapter<JogoAposta> {
             convertView = inflater.inflate(R.layout.layout_lista_jogos_aposta, parent, false);
 
             viewHolder.tvmandante = convertView.findViewById(R.id.tvmandante);
-            viewHolder.tvgolsmandante = convertView.findViewById(R.id.tvgolsmandante);
-            viewHolder.tvgolsvisitante = convertView.findViewById(R.id.tvgolsvisitante);
+            viewHolder.tvgolsmandanteaposta = convertView.findViewById(R.id.tvgolsmandanteaposta);
+            viewHolder.tvgolsvisitanteaposta = convertView.findViewById(R.id.tvgolsvisitanteaposta);
+            viewHolder.tvgolsmandantetabela = convertView.findViewById(R.id.tvgolsmandantetabela);
+            viewHolder.tvgolsvisitantetabela = convertView.findViewById(R.id.tvgolsvisitantetabela);
             viewHolder.tvvisitante = convertView.findViewById(R.id.tvvisitante);
             viewHolder.imgmandante = convertView.findViewById(R.id.imgmandante);
             viewHolder.imgvisitante = convertView.findViewById(R.id.imgvisitante);
@@ -67,8 +71,10 @@ public class ApostaAdapter extends ArrayAdapter<JogoAposta> {
             viewHolder = (Holder) convertView.getTag();
         }
 
-        viewHolder.tvgolsmandante.setText(String.valueOf(data.getGolsmandante()));
-        viewHolder.tvgolsvisitante.setText(String.valueOf(data.getGolsvisitante()));
+        viewHolder.tvgolsmandanteaposta.setText(String.valueOf(data.getGolsmandante()));
+        viewHolder.tvgolsvisitanteaposta.setText(String.valueOf(data.getGolsvisitante()));
+        viewHolder.tvgolsmandantetabela.setText(String.valueOf(data.getGolsmandantetabela()));
+        viewHolder.tvgolsvisitantetabela.setText(String.valueOf(data.getGolsvisitantetabela()));
         viewHolder.tvmandante.setText(data.getMandante());
         viewHolder.tvvisitante.setText(data.getVisitante());
         viewHolder.imgmandante.setImageBitmap(convertToBitmap(data.getEscudomandante()));

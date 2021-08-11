@@ -13,6 +13,11 @@
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/btnlista"
+                android:layout_width="30dp"
+                android:layout_height="30dp"/>
+
             <TextView
                 android:id="@+id/tvposicao"
                 android:layout_width="20dp"
@@ -30,7 +35,7 @@
 
             <TextView
                 android:id="@+id/tvdifpos"
-                android:layout_width="20dp"
+                android:layout_width="25dp"
                 android:layout_height="wrap_content"
                 android:gravity="start|center_vertical"
                 android:textSize="12sp"

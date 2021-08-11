@@ -7,6 +7,8 @@ public class JogoAposta {
     String mandante;
     int golsmandante;
     int golsvisitante;
+    int golsmandantetabela;
+    int golsvisitantetabela;
     String visitante;
     int pontos;
     int naveia;
@@ -76,6 +78,23 @@ public class JogoAposta {
 
     public void setGolsvisitante(int golsvisitante) {
         this.golsvisitante = golsvisitante;
+    }
+
+
+    public int getGolsmandantetabela() {
+        return golsmandantetabela;
+    }
+
+    public void setGolsmandantetabela(int golsmandantetabela) {
+        this.golsmandantetabela = golsmandantetabela;
+    }
+
+    public int getGolsvisitantetabela() {
+        return golsvisitantetabela;
+    }
+
+    public void setGolsvisitantetabela(int golsvisitantetabela) {
+        this.golsvisitantetabela = golsvisitantetabela;
     }
 
     public String getVisitante() {
