@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,7 +34,6 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
         total = _total;
         db = new BancoDados(c);
     }
-
 
     @NonNull
     @Override
@@ -106,6 +104,11 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
             intent.putExtra("rodada", String.valueOf(porrodada));
             mContext.startActivity(intent);
         });
+
+        holder.linearLayoutRegistros.setOnLongClickListener(view -> {
+            Toast.makeText(view.getContext(), "Clique longo", Toast.LENGTH_SHORT).show();
+            return true;
+        });
     }
 
     @Override
@@ -123,7 +126,6 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
         protected TextView tvnaveia;
         protected TextView tvnaveiavisitante;
         protected LinearLayout linearLayoutRegistros;
-        protected Button btnlista;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -136,7 +138,6 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
             tvnaveia = itemView.findViewById(R.id.tvnaveia);
             tvnaveiavisitante = itemView.findViewById(R.id.tvnaveiavisitante);
             linearLayoutRegistros = itemView.findViewById((R.id.layoutregistros));
-            btnlista = itemView.findViewById(R.id.btnlista);
 
             if (!total) {
                 tvdifpos.setVisibility(View.INVISIBLE);

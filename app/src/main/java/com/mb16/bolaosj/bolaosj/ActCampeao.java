@@ -37,7 +37,7 @@ public class ActCampeao extends AppCompatActivity {
         cbRodadaCampeao.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                Jogador participanteselecinado = ((Jogador)cbRodadaCampeao.getSelectedItem());
+                Jogador participanteselecinado = ((Jogador) cbRodadaCampeao.getSelectedItem());
                 nrojogador = participanteselecinado.getNroparticipante();
                 atualizarCampeao(nrojogador);
             }

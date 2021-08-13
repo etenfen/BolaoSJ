@@ -23,26 +23,6 @@ public class JogoTabela {
 
     }
 
-/*    public JogoTabela(int _nrojogo, int _rodada, String _mandante, byte[] _escudomandante,
-                      int _golsmandante, int _golsvisitante, String _visitante, byte[] _escudovisitante,
-                      int _pto0, int _pto1, int _pto2, int _pto3, int _pto5) {
-
-        this.nrojogo = _nrojogo;
-        this.rodada = _rodada;
-        this.mandante = _mandante;
-        this.golsmandante = _golsmandante;
-        this.golsvisitante = _golsvisitante;
-        this.visitante = _visitante;
-        this.escudomandante = _escudomandante;
-        this.escudovisitante = _escudovisitante;
-        this.pto0 = _pto0;
-        this.pto1 = _pto1;
-        this.pto2 = _pto2;
-        this.pto3 = _pto3;
-        this.pto5 = _pto5;
-    }
-*/
-
     public JogoTabela(int _nrojogo, int _rodada, String _mandante, byte[] _escudomandante,
                       int _golsmandante, int _golsvisitante, String _visitante, byte[] _escudovisitante) {
 
@@ -56,26 +36,6 @@ public class JogoTabela {
         this.escudovisitante = _escudovisitante;
     }
 
-
-
-/*    public JogoTabela(int _nrojogo, int _rodada, String _mandante, byte[] _escudomandante,
-                      int _golsmandante, int _golsvisitante, String _visitante, byte[] _escudovisitante,
-                      String _vencedor, String _empate ) {
-
-        this.nrojogo = _nrojogo;
-        this.rodada = _rodada;
-        this.mandante = _mandante;
-        this.golsmandante = _golsmandante;
-        this.golsvisitante = _golsvisitante;
-        this.visitante = _visitante;
-        this.vencedor = _vencedor;
-        this.empate = _empate;
-        this.escudomandante = _escudomandante;
-        this.escudovisitante = _escudovisitante;
-
-    }
-*/
-    //=====================================================================================
     public int getNrojogo() {
         return nrojogo;
     }

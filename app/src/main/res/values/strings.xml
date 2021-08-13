@@ -13,6 +13,7 @@
     <string name="nv">NV</string>
     <string name="nvv">NVV</string>
     <string name="busca">Busca</string>
+
     <string-array name="rodadas">
         <item>Rodada 1</item>
         <item>Rodada 2</item>

@@ -32,6 +32,7 @@
         <activity android:name=".ActPontuacao" />
         <activity android:name=".ActTabela" />
         <activity android:name=".ActCampeao" />
+        <activity android:name=".ActPontosporjogo" />
     </application>
 
 </manifest>

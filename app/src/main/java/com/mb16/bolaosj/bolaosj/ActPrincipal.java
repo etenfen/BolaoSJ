@@ -58,6 +58,7 @@ public class ActPrincipal extends AppCompatActivity {
         btnSalvar.setEnabled(false);
         lstTabela = findViewById(R.id.lstTabela);
         inputmethod = (InputMethodManager) this.getSystemService(Service.INPUT_METHOD_SERVICE);
+        lstTabela.setLongClickable(true);
 
         inicializarBancoDados();
         cbRodada.setSelection(db.retornaRodada()-1);
@@ -274,6 +275,16 @@ public class ActPrincipal extends AppCompatActivity {
             mostraTeclado();
         });
 
+        lstTabela.setOnItemLongClickListener((parent, view, position, id) -> {
+
+            dataModel = jogostabela.get(position);
+            String testenrojogo = String.valueOf(dataModel.getNrojogo());
+            Intent intent = new Intent(getApplicationContext(), ActPontosporjogo.class);
+            intent.putExtra("nrojogo",testenrojogo);
+            startActivity(intent);
+
+            return true;
+        });
 
         //TODO - VER PARA INSERIR 2 LINHAS NO TITULO DA ACTIVITY
         //TODO - VER BUTERKNIFE

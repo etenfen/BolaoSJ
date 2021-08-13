@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/FS7RPM/StudioProjects/BolaoSJ/app/src/main/res/layout/act_pontosporjogo.xml" value="0.33" />
+        <entry key="..\:/Users/FS7RPM/StudioProjects/BolaoSJ/app/src/main/res/layout/act_pontuacao.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/FS7RPM/StudioProjects/BolaoSJ/app/src/main/res/layout/act_principal.xml" value="0.25" />
         <entry key="..\:/Users/FS7RPM/StudioProjects/BolaoSJ/app/src/main/res/layout/act_tabela.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/FS7RPM/StudioProjects/BolaoSJ/app/src/main/res/layout/layout_lista_jogos_aposta.xml" value="0.1" />
+        <entry key="..\:/Users/FS7RPM/StudioProjects/BolaoSJ/app/src/main/res/layout/layout_lista_jogos_tabela.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/FS7RPM/StudioProjects/BolaoSJ/app/src/main/res/layout/layout_lista_participantes.xml" value="0.19947916666666668" />
         <entry key="..\:/Users/FS7RPM/StudioProjects/BolaoSJ/app/src/main/res/layout/layout_lista_pontos.xml" value="0.25" />
+        <entry key="..\:/Users/FS7RPM/StudioProjects/BolaoSJ/app/src/main/res/layout/layout_lista_pontosporjogo.xml" value="0.33" />
+        <entry key="..\:/Users/FS7RPM/StudioProjects/BolaoSJ/app/src/main/res/menu/menu_pontuacao.xml" value="0.1" />
       </map>
     </option>
   </component>

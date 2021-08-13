@@ -96,15 +96,15 @@ public class ActPontuacao extends AppCompatActivity {
         if (id == R.id.total) {
             cbRodadaPontos.setVisibility(View.GONE);
             porrodada = db.retornaRodada();
-            total = true;
-            atualizarPontuacao(porrodada, total,"");
+            //total = true;
+            atualizarPontuacao(porrodada, true,"");
             return true;
         }
         if (id == R.id.porrodada) {
             cbRodadaPontos.setVisibility(View.VISIBLE);
             porrodada = cbRodadaPontos.getSelectedItemPosition() + 1;
-            total = false;
-            atualizarPontuacao(porrodada, total,"");
+            //total = false;
+            atualizarPontuacao(porrodada, false,"");
             return true;
         }
         if (id == R.id.gerar_pdf) {

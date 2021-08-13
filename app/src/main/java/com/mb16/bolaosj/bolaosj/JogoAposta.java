@@ -13,8 +13,6 @@ public class JogoAposta {
     int pontos;
     int naveia;
     int naveiavisitante;
-    //String vencedor;
-    //String empate;
     byte[] escudomandante;
     byte[] escudovisitante;
 
@@ -22,35 +20,9 @@ public class JogoAposta {
 
     }
 
-    /*public JogoAposta(int _nrojogo, int _rodada, String _mandante, int _golsmandante, int _golsvisitante, String _visitante,
-                      int _pontos, int _naveia, int _naveiavisitante, String _vencedor, String _empate,
-                      byte[] _escudomandante, byte[] _escudovisitante) {
-
-        this.nrojogo = _nrojogo;
-        this.rodada = _rodada;
-        this.mandante = _mandante;
-        this.golsmandante = _golsmandante;
-        this.golsvisitante = _golsvisitante;
-        this.visitante = _visitante;
-        this.pontos = _pontos;
-        this.naveia = _naveia;
-        this.naveiavisitante = _naveiavisitante;
-        this.vencedor = _vencedor;
-        this.empate = _empate;
-        this.escudomandante = _escudomandante;
-        this.escudovisitante = _escudovisitante;
-
-    }*/
-
-    //public int getNrojogo() { return nrojogo; }
-
     public void setNrojogo(int nrojogo) {
         this.nrojogo = nrojogo;
     }
-
- /*   public int getRodada() {
-        return rodada;
-    }*/
 
     public void setRodada(int rodada) {
         this.rodada = rodada;
@@ -116,14 +88,6 @@ public class JogoAposta {
     public int getNaveiavisitante() { return naveiavisitante; }
 
     public void setNaveiavisitante(int naveiavisitante) { this.naveiavisitante = naveiavisitante; }
-
-    //public String getVencedor() { return vencedor; }
-
-    //public void setVencedor(String vencedor) { this.vencedor = vencedor; }
-
-    //public String getEmpate() { return empate; }
-
-    //public void setEmpate(String empate) { this.empate = empate; }
 
     public byte[] getEscudomandante() {
         return escudomandante;

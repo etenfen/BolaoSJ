@@ -13,11 +13,6 @@
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnlista"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
-
             <TextView
                 android:id="@+id/tvposicao"
                 android:layout_width="20dp"
@@ -73,6 +68,7 @@
                 android:gravity="center_horizontal"
                 android:text="@string/nvv" />
         </LinearLayout>
+
         <View
             android:layout_width="fill_parent"
             android:background="@color/bootstrap_gray"

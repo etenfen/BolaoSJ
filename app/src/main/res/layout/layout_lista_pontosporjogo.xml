@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/layoutregistros"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvnome"
+            android:layout_width="195dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/nome" />
+
+        <TextView
+            android:id="@+id/tvplacar"
+            android:layout_width="4dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/pontos" />
+
+        <TextView
+            android:id="@+id/tvpontos"
+            android:layout_width="2dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/pontos" />
+
+        <TextView
+            android:id="@+id/tvnaveia"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/nv" />
+
+        <TextView
+            android:id="@+id/tvnaveiavisitante"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/nvv" />
+    </LinearLayout>
+
+    <View
+            android:layout_width="fill_parent"
+            android:background="@color/bootstrap_gray"
+            android:focusable="false"
+            android:layout_height="1dp"/>
+
+</RelativeLayout>
