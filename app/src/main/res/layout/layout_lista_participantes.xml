@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:gravity="center"
     android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/layoutitem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/layoutregistros"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/tvposicao"
@@ -36,10 +20,7 @@
                 android:layout_width="195dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Nome"
+                android:text="@string/nome"
                 android:textSize="15sp"/>
-
-        </LinearLayout>
-    </LinearLayout>
 
 </RelativeLayout>

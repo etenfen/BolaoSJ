@@ -40,7 +40,7 @@ public class PontuacaoporjogoAdapter extends RecyclerView.Adapter<Pontuacaoporjo
 
         final Jogador item = mJogadorList.get(position);
 
-        holder.tvplacar.setText(item.getGolsmandante()+ " X " + item.getGolsvisitante());
+        holder.tvplacar.setText(item.getGolsmandante() + " X " + item.getGolsvisitante());
         holder.tvnome.setText(item.getNome());
         holder.tvpontos.setText(String.valueOf(item.getPontos()));
         holder.tvnaveia.setText(String.valueOf(item.getNaveia()));
