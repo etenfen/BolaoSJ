@@ -2,12 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:gravity="center"
     android:orientation="vertical">
 
-            <TextView
+    <LinearLayout
+        android:id="@+id/layoutitem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/layoutregistros"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+    <TextView
                 android:id="@+id/tvposicao"
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
@@ -23,4 +38,6 @@
                 android:text="@string/nome"
                 android:textSize="15sp"/>
 
+    </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

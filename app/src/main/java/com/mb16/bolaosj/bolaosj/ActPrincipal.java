@@ -63,94 +63,105 @@ public class ActPrincipal extends AppCompatActivity {
         inicializarBancoDados();
         cbRodada.setSelection(db.retornaRodada()-1);
 
-        btnLimpar.setOnClickListener(view -> limparCamposGols());
-
-        btnSalvar.setOnClickListener(view -> {
-
-            String nrojogo = edNroJogo.getText().toString();
-            if (nrojogo.isEmpty()) {
-
-                AlertDialog.Builder mensagem = new AlertDialog.Builder(ActPrincipal.this);
-                mensagem.setTitle("Informação");
-                mensagem.setMessage("Selecione um jogo válido");
-                mensagem.setNeutralButton("OK", null);
-                mensagem.show();
-                return;
-
+        btnLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                limparCamposGols();
             }
-            String golsmandante = tvgolsmandante.getText().toString();
-            if (golsmandante.equals("")) {
-                tvgolsmandante.setError("Campo obrigatório");
-                return;
-            }
-
-            String golsvisitante = tvgolsvisitante.getText().toString();
-            if (golsvisitante.equals("")) {
-                tvgolsvisitante.setError("Campo obrigatório");
-                return;
-            }
-
-            String empate = "N";
-            String vencedor;
-            if (Integer.parseInt(golsmandante) == Integer.parseInt(golsvisitante)) {
-                empate = "S";
-                vencedor = "N";
-            } else if (Integer.parseInt(golsmandante) > Integer.parseInt(golsvisitante)) {
-                vencedor = "M";
-            } else {
-                vencedor = "V";
-            }
-
-            JogoTabela jogotabela = new JogoTabela();
-            jogotabela.setNrojogo(Integer.parseInt(nrojogo));
-            jogotabela.setGolsmandante(Integer.parseInt(golsmandante));
-            jogotabela.setGolsvisitante(Integer.parseInt(golsvisitante));
-            jogotabela.setEmpate(empate);
-            jogotabela.setVencedor(vencedor);
-
-            db.atualizaJogoTabela(jogotabela, true);
-            db.atualizaPosicaoPontuacao(cbRodada.getSelectedItemPosition()+1);
-
-            JogoTabela jogotabela1 = db.selecionarJogoTabela(jogotabela.getNrojogo());
-            listarjogotabela(jogotabela1.getRodada());
-            limpartodosCampos();
-            popularCampos(jogotabela1.getNrojogo());
-            escondeTeclado();
-            Toast.makeText(ActPrincipal.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
         });
 
-        btnLimparPto.setOnClickListener(view -> {
 
-            String nrojogo = edNroJogo.getText().toString();
-            if (nrojogo.isEmpty()) {
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nrojogo = edNroJogo.getText().toString();
+                if (nrojogo.isEmpty()) {
 
-                AlertDialog.Builder mensagem = new AlertDialog.Builder(ActPrincipal.this);
-                mensagem.setTitle("Informação");
-                mensagem.setMessage("Selecione um jogo válido");
-                mensagem.setNeutralButton("OK", null);
-                mensagem.show();
-                return;
+                    AlertDialog.Builder mensagem = new AlertDialog.Builder(ActPrincipal.this);
+                    mensagem.setTitle("Informação");
+                    mensagem.setMessage("Selecione um jogo válido");
+                    mensagem.setNeutralButton("OK", null);
+                    mensagem.show();
+                    return;
+
+                }
+                String golsmandante = tvgolsmandante.getText().toString();
+                if (golsmandante.equals("")) {
+                    tvgolsmandante.setError("Campo obrigatório");
+                    return;
+                }
+
+                String golsvisitante = tvgolsvisitante.getText().toString();
+                if (golsvisitante.equals("")) {
+                    tvgolsvisitante.setError("Campo obrigatório");
+                    return;
+                }
+
+                String empate = "N";
+                String vencedor;
+                if (Integer.parseInt(golsmandante) == Integer.parseInt(golsvisitante)) {
+                    empate = "S";
+                    vencedor = "N";
+                } else if (Integer.parseInt(golsmandante) > Integer.parseInt(golsvisitante)) {
+                    vencedor = "M";
+                } else {
+                    vencedor = "V";
+                }
+
+                JogoTabela jogotabela = new JogoTabela();
+                jogotabela.setNrojogo(Integer.parseInt(nrojogo));
+                jogotabela.setGolsmandante(Integer.parseInt(golsmandante));
+                jogotabela.setGolsvisitante(Integer.parseInt(golsvisitante));
+                jogotabela.setEmpate(empate);
+                jogotabela.setVencedor(vencedor);
+
+                db.atualizaJogoTabela(jogotabela, true);
+                db.atualizaPosicaoPontuacao(cbRodada.getSelectedItemPosition()+1);
+
+                JogoTabela jogotabela1 = db.selecionarJogoTabela(jogotabela.getNrojogo());
+                listarjogotabela(jogotabela1.getRodada());
+                limpartodosCampos();
+                popularCampos(jogotabela1.getNrojogo());
+                escondeTeclado();
+                Toast.makeText(ActPrincipal.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
             }
-            db.atualizaJogoAposta(Integer.parseInt(nrojogo),0);
-            //db.limpaPontosJogo(Integer.parseInt(nrojogo));
+        });
 
-            JogoTabela jogotabela = new JogoTabela();
-            jogotabela.setNrojogo(Integer.parseInt(nrojogo));
-            jogotabela.setGolsmandante(0);
-            jogotabela.setGolsvisitante(0);
-            jogotabela.setEmpate("N");
-            jogotabela.setVencedor("N");
+        btnLimparPto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nrojogo = edNroJogo.getText().toString();
+                if (nrojogo.isEmpty()) {
 
-            db.atualizaJogoTabela(jogotabela, false);
+                    AlertDialog.Builder mensagem = new AlertDialog.Builder(ActPrincipal.this);
+                    mensagem.setTitle("Informação");
+                    mensagem.setMessage("Selecione um jogo válido");
+                    mensagem.setNeutralButton("OK", null);
+                    mensagem.show();
+                    return;
+                }
 
-            JogoTabela jogotabela1 = db.selecionarJogoTabela(jogotabela.getNrojogo());
-            listarjogotabela(jogotabela1.getRodada());
-            limpartodosCampos();
-            popularCampos(jogotabela1.getNrojogo());
-            escondeTeclado();
+                db.atualizaJogoAposta(Integer.parseInt(nrojogo),0);
+                //db.limpaPontosJogo(Integer.parseInt(nrojogo));
 
-            Toast.makeText(ActPrincipal.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
+                JogoTabela jogotabela = new JogoTabela();
+                jogotabela.setNrojogo(Integer.parseInt(nrojogo));
+                jogotabela.setGolsmandante(0);
+                jogotabela.setGolsvisitante(0);
+                jogotabela.setEmpate("N");
+                jogotabela.setVencedor("N");
 
+                db.atualizaJogoTabela(jogotabela, false);
+
+                JogoTabela jogotabela1 = db.selecionarJogoTabela(jogotabela.getNrojogo());
+                listarjogotabela(jogotabela1.getRodada());
+                limpartodosCampos();
+                popularCampos(jogotabela1.getNrojogo());
+                escondeTeclado();
+
+                Toast.makeText(ActPrincipal.this, "Alterado com sucesso", Toast.LENGTH_SHORT).show();
+
+            }
         });
 
         cbRodada.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -266,7 +277,7 @@ public class ActPrincipal extends AppCompatActivity {
         btnLimparPto.setEnabled(true);
         mostraTeclado();
 
-        lstTabela.setOnItemClickListener((parent, view, position, id) -> {
+        lstTabela.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
 
             dataModel = jogostabela.get(position);
             popularCampos(dataModel.getNrojogo());
