@@ -105,10 +105,10 @@ public class PontuacaoAdapter extends RecyclerView.Adapter<PontuacaoAdapter.View
             mContext.startActivity(intent);
         });
 
-        holder.linearLayoutRegistros.setOnLongClickListener(view -> {
+/*        holder.linearLayoutRegistros.setOnLongClickListener(view -> {
             Toast.makeText(view.getContext(), "Clique longo", Toast.LENGTH_SHORT).show();
             return true;
-        });
+        });*/
     }
 
     @Override

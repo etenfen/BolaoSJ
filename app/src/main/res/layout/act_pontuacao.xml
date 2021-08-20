@@ -11,13 +11,6 @@
         android:background="@color/bootstrap_well_border_color"
         android:entries="@array/rodadas" />
 
-  <!--  <ListView
-        android:id="@+id/lstPontuacao"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ListView> -->
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mRecyclerViewPontuacao"
         android:layout_width="wrap_content"

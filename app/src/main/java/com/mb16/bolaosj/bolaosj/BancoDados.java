@@ -104,9 +104,9 @@ public class BancoDados extends SQLiteOpenHelper {
     public List<JogoAposta> allJogoAposta(int _rodada, int _nrojogador) {
         List<JogoAposta> listJogoAposta = new ArrayList<>();
         mDB = this.getWritableDatabase();
-        //String sql = "";
-//        if (_rodada != 0 && _nrojogador != 0) {
-        String sql = "SELECT " +
+        String sql = "";
+        if (_rodada != 0 && _nrojogador != 0) {
+            sql = "SELECT " +
                 "   a.nrojogo, a.rodada, t.nometime as mandante, t.escudotime, p.golsmandante," +
                 "   p.golsvisitante, t2.nometime as visitante, t2.escudotime, p.pontos, p.naveia, p.naveiavisitante, " +
                 "   a.golsmandante, a.golsvisitante " +
@@ -118,8 +118,8 @@ public class BancoDados extends SQLiteOpenHelper {
                 "where " +
                 " nrojogador = " + _nrojogador + " and " +
                 " rodada = " + _rodada;
-//        }
-/*        if (_rodada == 0 && _nrojogador == 0) {
+        }
+        if (_rodada == 0 && _nrojogador == 0) {
             sql = "SELECT " +
                     "   a.nrojogo, a.rodada, t.nometime as mandante, t.escudotime, p.golsmandante," +
                     "   p.golsvisitante, t2.nometime as visitante, t2.escudotime, p.pontos, p.naveia, p.naveiavisitante, " +
@@ -156,7 +156,7 @@ public class BancoDados extends SQLiteOpenHelper {
                     "left join tabaposta p on (a.nrojogo = p.nrojogo)  " +
                     "where " +
                     " nrojogador = " + _nrojogador;
-        }*/
+        }
         Cursor cursor = mDB.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {

@@ -189,7 +189,6 @@ public class ActPontuacao extends AppCompatActivity {
             pagina.drawColor(Color.WHITE);
 
             for (int x = 0; x < tamanhodalista; x++) {
-
                 Bitmap bitmap = bitmapCache.get(String.valueOf(x));
                 pagina.drawBitmap(bitmap, 0, alturaVolatil, paint);
                 alturaVolatil += bitmap.getHeight();
